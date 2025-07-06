@@ -1,29 +1,83 @@
-@using CMS.Models
+@model List<MenuItem>;
+<div class="p-sm-2 p-md-3 p-lg-4 p-xl-4">
+	<div class="row mb-25">
+		@foreach (var item in Model)
+		{
+			<a href="@item.Link" class="col-lg-3 col-6 col-xs-12 d-block">
+				<div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg">
+					<div class="left">
+						<p class="d-flex justify-content-between mb-2">@item.Name</p>
+						<h3 class="fw-normal">@item.Count</h3>
+						<p class="text-muted">
+							<small>@item.Description</small>
+						</p>
+					</div>
+					<div class="right">
+						<div class="part-icon text-light rounded">
+							<span>
+								<i class="fa-light @item.Icon"></i>
+							</span>
+						</div>
+					</div>
+				</div>
 
-<h2>Home</h2>
+			</a>
+		}
 
-@(Html.DevExtreme().DataGrid<SampleOrder>()
-    .ShowBorders(true)
-    .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
-    .Columns(columns => {
-        columns.AddFor(m => m.OrderID);
-        columns.AddFor(m => m.OrderDate);
-        columns.AddFor(m => m.CustomerName);
-        columns.AddFor(m => m.ShipCountry);
-        columns.AddFor(m => m.ShipCity);
-    })
-    .Paging(p => p.PageSize(10))
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
-    .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
-    .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
-        })
-    )
-)
+		@* <a href="#" class="col-lg-3 col-6 col-xs-12 d-block"> *@
+		@* 	<div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg"> *@
+		@* 		<div class="left"> *@
+		@* 			<p class="d-flex justify-content-between mb-2">Campaign Sent</p> *@
+		@* 			<h3 class="fw-normal">12,412</h3> *@
+		@* 			<p class="text-muted"> *@
+		@* 				<small>4 for last month</small> *@
+		@* 			</p> *@
+		@* 		</div> *@
+		@* 		<div class="right"> *@
+		@* 			<div class="part-icon text-light rounded"> *@
+		@* 				<span> *@
+		@* 					<i class="fa-light fa-bullhorn"></i> *@
+		@* 				</span> *@
+		@* 			</div> *@
+		@* 		</div> *@
+		@* 	</div> *@
+		@* </a> *@
+		@* <a href="#" class="col-lg-3 col-6 col-xs-12 d-block"> *@
+		@* 	<div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg"> *@
+		@* 		<div class="left"> *@
+		@* 			<p class="d-flex justify-content-between mb-2">Annual Profit</p> *@
+		@* 			<h3 class="fw-normal">$134,152</h3> *@
+		@* 			<p class="text-muted"> *@
+		@* 				<small>124 for last month</small> *@
+		@* 			</p> *@
+		@* 		</div> *@
+		@* 		<div class="right"> *@
+		@* 			<div class="part-icon text-light rounded"> *@
+		@* 				<span> *@
+		@* 					<i class="fa-light fa-dollar-sign"></i> *@
+		@* 				</span> *@
+		@* 			</div> *@
+		@* 		</div> *@
+		@* 	</div> *@
+		@* </a> *@
+		@* <a href="#" class="col-lg-3 col-6 col-xs-12 d-block"> *@
+		@* 	<div class="dashboard-top-box dashboard-top-box-2 rounded border-0 panel-bg"> *@
+		@* 		<div class="left"> *@
+		@* 			<p class="d-flex justify-content-between mb-2">Lead Conversation</p> *@
+		@* 			<h3 class="fw-normal">52%</h3> *@
+		@* 			<p class="text-muted"> *@
+		@* 				<small>124 for last month</small> *@
+		@* 			</p> *@
+		@* 		</div> *@
+		@* 		<div class="right"> *@
+		@* 			<div class="part-icon text-light rounded"> *@
+		@* 				<span> *@
+		@* 					<i class="fa-light fa-magnifying-glass-chart"></i> *@
+		@* 				</span> *@
+		@* 			</div> *@
+		@* 		</div> *@
+		@* 	</div> *@
+		@* *@
+		@* </a> *@
+	</div>
+</div>

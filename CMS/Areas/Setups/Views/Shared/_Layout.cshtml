@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-menu="horizontal">
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="~/vendor/assets/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/vendor/assets/css/style.css">
     <link rel="stylesheet" id="primaryColor" href="~/vendor/assets/css/blue-color.css">
+    <link rel="stylesheet" id="rtlStyle" href="#">
 
 </head>
 
@@ -59,11 +60,15 @@
     <!-- main content start -->
     <div class="main-content">
 
-        <div >
-           
+        <div class="panel">
+            <div class="panel-header">
+                @(ViewBag.Breadcrumb ?? "Dashboard")
+            </div>
+
+            <div class="panel-body">
                 @RenderBody()
 
-             
+            </div>
         </div>
 
 
