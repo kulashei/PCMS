@@ -1,10 +1,23 @@
 ﻿@using DevExtreme.AspNet.Mvc
 @using Web.Models
-  
+
 @(Html.DevExtreme().DataGrid<SampleOrder>()
 	.ShowBorders(true)
-	.DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
-	.Columns(columns => {
+	.DataSource(d => d.Mvc()
+		.Controller("SampleData")
+		.LoadAction("Get")
+		.Key("OrderID")
+	)
+	.Editing(ed => ed
+		.AllowAdding(true)
+		.AllowUpdating(true)
+		.AllowDeleting(true)
+		.UseIcons(true)
+		.Mode(GridEditMode.Popup)
+		.Popup(pp => pp.ShowCloseButton(true).HideOnOutsideClick(false))
+	)
+	.Columns(columns =>
+	{
 		columns.AddFor(m => m.OrderID);
 		columns.AddFor(m => m.OrderDate);
 		columns.AddFor(m => m.CustomerName);
@@ -18,11 +31,7 @@
 	.Grouping(g => g.AutoExpandAll(false))
 	.RemoteOperations(true)
 	.Summary(s => s
-		.TotalItems(totalItems => {
-			totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
-		})
-		.GroupItems(groupItems => {
-			groupItems.Add().SummaryType(SummaryType.Count);
-		})
+		.TotalItems(totalItems => { totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count); })
+		.GroupItems(groupItems => { groupItems.Add().SummaryType(SummaryType.Count); })
 	)
 )
