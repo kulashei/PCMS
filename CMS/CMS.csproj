@@ -17,6 +17,41 @@
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Areas\Accounts\Controllers\" />
+	  <Folder Include="Areas\Accounts\Data\" />
+	  <Folder Include="Areas\Accounts\Models\" />
+	  <Folder Include="Areas\Accounts\Views\" />
+	  <Folder Include="Areas\Admin\Controllers\" />
+	  <Folder Include="Areas\Admin\Data\" />
+	  <Folder Include="Areas\Admin\Models\" />
+	  <Folder Include="Areas\Admin\Views\" />
+	  <Folder Include="Areas\Contracts\Controllers\" />
+	  <Folder Include="Areas\Contracts\Data\" />
+	  <Folder Include="Areas\Contracts\Models\" />
+	  <Folder Include="Areas\Contracts\Views\" />
+	  <Folder Include="Areas\HR\Controllers\" />
+	  <Folder Include="Areas\HR\Data\" />
+	  <Folder Include="Areas\HR\Models\" />
+	  <Folder Include="Areas\HR\Views\" />
+	  <Folder Include="Areas\Payments\Controllers\" />
+	  <Folder Include="Areas\Payments\Data\" />
+	  <Folder Include="Areas\Payments\Models\" />
+	  <Folder Include="Areas\Payments\Views\" />
+	  <Folder Include="Areas\Programmes\Controllers\" />
+	  <Folder Include="Areas\Programmes\Data\" />
+	  <Folder Include="Areas\Programmes\Models\" />
+	  <Folder Include="Areas\Programmes\Views\" />
+	  <Folder Include="Areas\Tender\Controllers\" />
+	  <Folder Include="Areas\Tender\Data\" />
+	  <Folder Include="Areas\Tender\Models\" />
+	  <Folder Include="Areas\Tender\Views\" />
+	  <Folder Include="Areas\VO\Controllers\" />
+	  <Folder Include="Areas\VO\Data\" />
+	  <Folder Include="Areas\VO\Models\" />
+	  <Folder Include="Areas\VO\Views\" />
+	</ItemGroup>
+
 	<ProjectExtensions>
 		<VisualStudio>
 			<UserProperties TemplateFeatures="NETCORE" />
