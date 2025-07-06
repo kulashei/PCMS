@@ -10,6 +10,8 @@ namespace Web.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Breadcrumb = "Dashboard";
+            ViewBag.PageTitle = "Dashboard";
             return View();
         }
 
