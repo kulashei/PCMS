@@ -2,99 +2,89 @@
 
 <html data-menu="horizontal">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <title>CMS</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<title>CMS</title>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 
-    <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
+	<link href="~/css/devextreme/bootstrap.css" rel="stylesheet"/>
 
-    <link href="~/css/devextreme/dx.light.css" rel="stylesheet" />
+	<link href="~/css/devextreme/dx.light.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="~/css/Site.css" />
-
-
-    <script src="~/js/devextreme/jquery.js"></script>
-    <script src="~/js/devextreme/bootstrap.js"></script>
+	<link rel="stylesheet" href="~/css/Site.css"/>
 
 
-    <script src="~/js/devextreme/dx.all.js"></script>
+	<script src="~/js/devextreme/jquery.js"></script>
+	<script src="~/js/devextreme/bootstrap.js"></script>
 
 
-    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
-    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+	<script src="~/js/devextreme/dx.all.js"></script>
 
-    <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" href="~/vendor/assets/vendor/css/all.min.css">
-    <link rel="stylesheet" href="~/vendor/assets/vendor/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="~/vendor/assets/vendor/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" href="~/vendor/assets/vendor/css/daterangepicker.css">
-    <link rel="stylesheet" href="~/vendor/assets/vendor/css/select2.min.css">
-    <link rel="stylesheet" href="~/vendor/assets/vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/vendor/assets/css/style.css">
-    <link rel="stylesheet" id="primaryColor" href="~/vendor/assets/css/blue-color.css">
+
+	<script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
+	<script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+
+	<link rel="shortcut icon" href="favicon.png">
+	<link rel="stylesheet" href="~/vendor/assets/vendor/css/all.min.css">
+	<link rel="stylesheet" href="~/vendor/assets/vendor/css/jquery-ui.min.css">
+	<link rel="stylesheet" href="~/vendor/assets/vendor/css/OverlayScrollbars.min.css">
+	<link rel="stylesheet" href="~/vendor/assets/vendor/css/daterangepicker.css">
+	<link rel="stylesheet" href="~/vendor/assets/vendor/css/select2.min.css">
+	<link rel="stylesheet" href="~/vendor/assets/vendor/css/bootstrap.min.css">
+	<link rel="stylesheet" href="~/vendor/assets/css/style.css">
+	<link rel="stylesheet" id="primaryColor" href="~/vendor/assets/css/blue-color.css">
 
 </head>
 
 <body class="body-padding body-p-top light-theme">
-    <!-- preloader start -->
-    <div class="preloader d-none">
-        <div class="loader">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-    <!-- preloader end -->
-    <!-- header start -->
-    <partial name="TopNavBar" />
-    <!-- header end -->
-    <!-- main sidebar start -->
-    <partial name="MainSideBar" />
-    <!-- main sidebar end -->
-    <!-- main content start -->
-    <div class="main-content">
+<!-- preloader start -->
+<div class="preloader d-none">
+	<div class="loader">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+</div>
+<!-- preloader end -->
+<!-- header start -->
+<partial name="TopNavBar"/>
+<!-- header end -->
+<!-- main sidebar start -->
+<partial name="MainSideBar"/>
+<!-- main sidebar end -->
+<!-- main content start -->
+<div class="main-content">
 
-        <div >
-           
-                @RenderBody()
-
-             
-        </div>
+	<div >
+		@RenderBody()
+	</div>
 
 
-        <!-- footer start -->
-        <div class="footer">
-            <p>Copyright© <script>document.write(new Date().getFullYear())</script> All Rights Reserved By <span class="text-primary">JSolutions</span></p>
-        </div>
-        <!-- footer end -->
-    </div>
-    <!-- main content end -->
-    
+	<!-- footer start -->
+	<div class="footer">
+		<p>Copyright© <script>document.write(new Date().getFullYear())</script> All Rights Reserved By <span class="text-primary">JSolutions</span></p>
+	</div>
+	<!-- footer end -->
+</div>
+<!-- main content end -->
 
-    <script src="~/vendor/assets/vendor/js/jquery-3.6.0.min.js"></script>
-    <script src="~/vendor/assets/vendor/js/jquery-ui.min.js"></script>
-    <script src="~/vendor/assets/vendor/js/jquery.overlayScrollbars.min.js"></script>
-    <script src="~/vendor/assets/vendor/js/apexcharts.js"></script>
-    <script src="~/vendor/assets/vendor/js/moment.min.js"></script>
-    <script src="~/vendor/assets/vendor/js/daterangepicker.js"></script>
-    <script src="~/vendor/assets/vendor/js/select2.min.js"></script>
-    <script src="~/vendor/assets/vendor/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendor/assets/js/dashboard.js"></script>
-    <script src="~/vendor/assets/js/main.js"></script>
-    <script src="~/vendor/assets/js/select2-init.js"></script>
-    <!-- for demo purpose -->
-    <script>
-        var rtlReady = $('html').attr('dir', 'ltr');
-        if (rtlReady !== undefined) {
-            localStorage.setItem('layoutDirection', 'ltr');
-        }
-    </script>
-    <!-- for demo purpose -->
+
+<script src="~/vendor/assets/vendor/js/jquery-3.6.0.min.js"></script>
+<script src="~/vendor/assets/vendor/js/jquery-ui.min.js"></script>
+<script src="~/vendor/assets/vendor/js/jquery.overlayScrollbars.min.js"></script>
+<script src="~/vendor/assets/vendor/js/apexcharts.js"></script>
+<script src="~/vendor/assets/vendor/js/moment.min.js"></script>
+<script src="~/vendor/assets/vendor/js/daterangepicker.js"></script>
+<script src="~/vendor/assets/vendor/js/select2.min.js"></script>
+<script src="~/vendor/assets/vendor/js/bootstrap.bundle.min.js"></script>
+<script src="~/vendor/assets/js/dashboard.js"></script>
+<script src="~/vendor/assets/js/main.js"></script>
+<script src="~/vendor/assets/js/select2-init.js"></script>
+
 </body>
 
 </html>
