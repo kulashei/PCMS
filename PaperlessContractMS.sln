@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{8D190311-F158-46D9-8788-F379CB04FC06}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevExtreme NuGet.config", "
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "Web.Tests\Web.Tests.csproj", "{3E409843-04EA-45AD-939A-41EB80E8078F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS", "CMS\CMS.csproj", "{4E602B07-97E1-7A0A-4EB1-ECD52404957F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{3E409843-04EA-45AD-939A-41EB80E8078F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E409843-04EA-45AD-939A-41EB80E8078F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E409843-04EA-45AD-939A-41EB80E8078F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E602B07-97E1-7A0A-4EB1-ECD52404957F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E602B07-97E1-7A0A-4EB1-ECD52404957F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E602B07-97E1-7A0A-4EB1-ECD52404957F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E602B07-97E1-7A0A-4EB1-ECD52404957F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
