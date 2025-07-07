@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CMS.Areas.Admin.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Areas.Setups.Controllers
+namespace CMS.Areas.Admin.Controllers
 {
     public class HomeController : BaseController
     {
