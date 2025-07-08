@@ -37,7 +37,8 @@ namespace CMS.Controllers
                     Count = 10,
                     Description = "Assigned to you",
                     Icon = "fas fa-project-diagram",
-                    Link = "#"
+                    Link = Url.Action("Index", "Home", new { area = "Programmes" }),
+                    HasCount = false
                 },
                 new()
                 {
@@ -93,7 +94,7 @@ namespace CMS.Controllers
                     Count = 10,
                     Description = "Assigned to you",
                     Icon = "fas fa-cog",
-                    Link = Url.Action("Index", "Home", new { area = "Setups" }),
+                    Link = Url.Action("Index", "Home", new { area = "Admin" }),
                     HasCount = false
                 }
             ];
