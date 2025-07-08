@@ -40,10 +40,8 @@
 	  <Folder Include="Areas\Programmes\Data\" />
 	  <Folder Include="Areas\Programmes\Models\" />
 	  <Folder Include="Areas\Programmes\Views\Programes\" />
-	  <Folder Include="Areas\Tender\Controllers\" />
 	  <Folder Include="Areas\Tender\Data\" />
 	  <Folder Include="Areas\Tender\Models\" />
-	  <Folder Include="Areas\Tender\Views\" />
 	  <Folder Include="Areas\VO\Controllers\" />
 	  <Folder Include="Areas\VO\Data\" />
 	  <Folder Include="Areas\VO\Models\" />
