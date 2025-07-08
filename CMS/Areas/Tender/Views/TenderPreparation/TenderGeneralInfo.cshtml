@@ -1,5 +1,82 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using DevExtreme.AspNet.Mvc
+@using Bid;
+
+@(Html.DevExtreme()
+    .DataGrid()
+    .ID("GridProgrammes")
+    .ShowBorders(true)
+    .Width("100%")
+    .AllowColumnReordering(false)
+    .RowAlternationEnabled(true)
+    .ShowColumnLines(true)
+    .FocusedRowEnabled(true)
+    .DataSource(ds => ds.Mvc()
+        .Controller("ConsumeStockRequestWebAPI")
+        .LoadAction("GetRequestByCampusID")
+        .Key("RequisitionId")
+        .LoadParams(new { intCampusID = new JS("getCampus") })
+    )
+    .SearchPanel(searchPanel => searchPanel
+        .Visible(true)
+        .Width(240)
+        .Placeholder("Search...")
+    )
+    .Selection(s => s.Mode(SelectionMode.Single))
+    .Columns(c =>
+    {
+        c.AddFor(f => f.c).Visible(false);
+        c.AddFor(f => f.CampusName).Visible(false);
+        c.AddFor(f => f.Designation).Visible(false);
+        c.AddFor(f => f.RequisitionId).Visible(false);
+        c.AddFor(f => f.RequisitionCode).Visible(false);
+        c.AddFor(f => f.RequisitionDate).Width(120).Format("dd-MMM-yyyy").Caption("Date");
+        c.AddFor(f => f.DepartmentId).Visible(false);
+        c.AddFor(f => f.DepartmentName).Width(200).Caption("Department");
+        c.AddFor(f => f.RequisitionedBy).Width(200);
+        c.AddFor(f => f.RequisitionText).Width(300).Caption("Purpose");
+        c.AddFor(f => f.RequestStatusId).Visible(false);
+        c.AddFor(f => f.RequestStatus).Width(80).Caption("Status");
+        c.Add().Type(GridCommandColumnType.Buttons).Buttons(b => { b.Add().Icon("fa-solid fa-eye")
+        .OnClick("LoadRequestByID")
+        ; });
+    })
+    .Toolbar(toolbar =>
+    {
+        toolbar.Items(items =>
+        {
+            items.Add()
+                .Location(ToolbarItemLocation.Before)
+                .Widget(w => w.SelectBox()
+                    .Width(200)
+                    .ID("cboCampus")
+                    .DataSource(d => d.Mvc().Controller("ConsumablesLookUps").LoadAction("GetCampusAll"))
+                    .ValueExpr("CampusId")
+                    .DisplayExpr("CampusName")
+                    .OnValueChanged("LooadData")
+                );
+            items.Add()
+                .Location(ToolbarItemLocation.After)
+                .Widget(w => w.Button()
+                    .Text("Add")
+                    .Width(120)
+                    .Type(ButtonType.Default)
+                    .StylingMode(ButtonStylingMode.Outlined)
+                    .Icon("fa-solid fa-plus")
+                    .HoverStateEnabled(true)
+                    .OnClick("showAddPopup")
+                );
+
+            items.Add()
+                .Location(ToolbarItemLocation.After)
+                .Widget(w => w.Button()
+                    .Text("Refresh")
+                    .Width(120)
+                    .Type(ButtonType.Default)
+                    .StylingMode(ButtonStylingMode.Outlined)
+                    .Icon("fa-solid fa-arrows-rotate")
+                    .HoverStateEnabled(true));
+
+            items.Add().Name("searchPanel");
+        });
+    })
+)

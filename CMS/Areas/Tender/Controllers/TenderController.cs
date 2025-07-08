@@ -4,8 +4,11 @@ namespace CMS.Areas.Tender.Controllers
 {
     public class TenderController : BaseController
     {
-        public IActionResult Index()
+
+        public IActionResult TenderGeneralInfo()
         {
+            ViewBag.Breadcrumb = "General Dashboard";
+            ViewBag.PageTitle = "Tender";
             return View();
         }
     }

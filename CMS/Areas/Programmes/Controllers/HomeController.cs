@@ -11,5 +11,11 @@ namespace CMS.Areas.Programmes.Controllers
             ViewBag.PageTitle = "Programmes";
             return View();
         }
+        public IActionResult ProgGeneralInformation()
+        {
+            ViewBag.Breadcrumb = "Programmes Dashboard";
+            ViewBag.PageTitle = "Programmes";
+            return View();
+        }
     }
 }
