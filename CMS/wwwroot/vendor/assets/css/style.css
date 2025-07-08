@@ -21,8 +21,15 @@ TABLE OF CONTENTS:
 06  Left Sidebar section
 07  Main Content section
 
+
+
 ======Responsive stylsheet======
 08  Responsive*/
+
+.sidebar-link-group{
+  display:none;
+}
+
 @-webkit-keyframes fadeUp {
   0% {
     top: 45px;
@@ -10930,11 +10937,6 @@ pre .punctuation {
   margin-bottom: -19px;
 }
 
-.main-content .pricing-panel-2 .pricing-table .bottom {
-  padding: 30px;
-  text-align: center;
-}
-
 .dropzone {
   min-height: auto;
   padding: 0;
@@ -10952,6 +10954,11 @@ pre .punctuation {
   -ms-flex-align: center;
   align-items: center;
   gap: 10px;
+}
+
+.main-content .pricing-panel-2 .pricing-table .bottom {
+  padding: 30px;
+  text-align: center;
 }
 
 .dropzone.dz-started .dz-message {
