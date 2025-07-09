@@ -22,7 +22,6 @@
 	  <Folder Include="Areas\Accounts\Data\" />
 	  <Folder Include="Areas\Accounts\Models\" />
 	  <Folder Include="Areas\Accounts\Views\" />
-	  <Folder Include="Areas\Admin\Views\NewFolder\" />
 	  <Folder Include="Areas\Contracts\Data\" />
 	  <Folder Include="Areas\Contracts\Models\" />
 	  <Folder Include="Areas\Contracts\Views\ContractManagement\" />

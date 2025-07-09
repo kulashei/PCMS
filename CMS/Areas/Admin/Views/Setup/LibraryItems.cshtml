@@ -1,5 +1,240 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@(Html.DevExtreme().TabPanel()
+	.ID("tabpanel-container")
+	.SelectedIndex(0)
+	.Loop(false)
+	.AnimationEnabled(true)
+	.SwipeEnabled(true)
+	.Items(tabs =>
+	{
+		tabs.Add().Title("Consumables")
+			.Icon("fa fa-cart-plus")
+			.Template(@<text>
+@(Html.DevExtreme().DataGrid<EduERP.Areas.Logistics.Models.Stock>()
+	.DataSource(ds => ds.Mvc()
+	.Controller("LogisticsStockWebAPI")
+	.LoadAction("Get")
+	.InsertAction("Post")
+	.UpdateAction("Put")
+	.DeleteAction("Delete")
+	.Key("Id")
+	.LoadParams(new { campusno = new JS("getInventoryCampus") })
+	)
+	.RemoteOperations(false)
+	.ID("ItemsGrid")
+	.AllowColumnReordering(false)
+	.RowAlternationEnabled(true)
+	.FocusedRowEnabled(true)
+	.ShowColumnLines(true)
+	.Selection(s => s.Mode(SelectionMode.Multiple).ShowCheckBoxesMode(GridSelectionShowCheckBoxesMode.Always))
+	.FilterRow(f => f.Visible(true))
+	.ShowBorders(true)
+	.Width("100%")
+	.NoDataText("Stock Record Empty.")
+	.Paging(p => p.PageSize(11))
+	.Pager(p => p
+	.ShowPageSizeSelector(true)
+	.AllowedPageSizes(new[] { 11, 25, 50, 100 })
+	.ShowInfo(true)
+	.InfoText("Page {0} of {1} | Total Items: {2}")
+	)
+	.SearchPanel(s => s
+	.Visible(true)
+	.HighlightCaseSensitive(false)
+	)
+	.Summary(s => s
+	.TotalItems(totalItems =>
+	{
+		totalItems.AddFor(m => m.StockAmount).SummaryType(SummaryType.Sum).ShowInColumn("Item")
+		.ValueFormat("#,##0/=").DisplayFormat("Total {1}: {0}").CssClass("summary");
+	})
+	)
+	.Columns(columns =>
+	{
+		columns.AddFor(m => m.ProductId).Caption("SNo").Alignment(HorizontalAlignment.Left).Width(80).AllowEditing(false);
+
+		columns.AddFor(m => m.ProductName).Width(270).Caption("Item");
+
+		columns.AddFor(m => m.Currentstock).Width(100).Caption("Current Stock");
+
+		columns.AddFor(m => m.CategoryId).Width(150).Caption("Category")
+		.Lookup(lookup => lookup
+		.DataSource("getCategories")
+		.ValueExpr("Value")
+		.DisplayExpr("Text"));
+							   //d => d.Mvc().Controller("LookupsProcurement").LoadAction("LookupStockCategory").Key("Value")
+							   //                 .LoadParams(new { campusno = new JS("getInventoryCampus") })
+		columns.AddFor(m => m.Units).Caption("Unit").Width(80);
+		columns.AddFor(m => m.StockAmount).Format("#,##0/=").Width(170).Caption("Stock Value");
+
+		columns.AddFor(m => m.QuantityPerUnit).Width(100);
+
+
+		columns.AddFor(m => m.MinStock).Visible(false).Caption("Minimum Stock");
+
+		columns.AddFor(m => m.PurchaseUnit).Visible(false);
+
+		columns.AddFor(m => m.CampusId).Visible(false).AllowEditing(false).Caption("Campus")
+		.Lookup(lookup => lookup
+		.DataSource(d => d.Mvc().Controller("LookUps").LoadAction("LookupCampus").Key("Value"))
+		.ValueExpr("Value")
+		.DisplayExpr("Text"));
+
+		columns.Add()
+		.Type(GridCommandColumnType.Buttons)
+		.Caption("#")
+		.Width(60)
+		.Buttons(b =>
+		{
+			b.Add().Name(GridColumnButtonName.Edit).Hint("Update Item");
+			b.Add().Name(GridColumnButtonName.Delete).Hint("Remove this Item");
+		});
+	})
+	.Editing(e => e
+	.AllowUpdating(true)
+	.AllowDeleting(true)
+	.UseIcons(true)
+	.Texts(t => t.ConfirmDeleteTitle("Confirmation").ConfirmDeleteMessage("You can Only remove Items without Captured Orders and Receipts. Proceed?"))
+	.Mode(GridEditMode.Popup)
+	.Popup(p => p
+	.Title("ITEM DETAILS :: EDIT FORM")
+	.ShowTitle(true)
+	.Width(700)
+	.Height(450)
+	.Position(pos => pos
+	.My(HorizontalAlignment.Center, VerticalAlignment.Center)
+	.At(HorizontalAlignment.Center, VerticalAlignment.Center)
+	.Of(new JS("window"))
+	)
+	)
+	.Form(f => f.Items(items =>
+	{
+		items.AddGroup()
+		.ColCount(2)
+		.ColSpan(2)
+		.Items(groupItems =>
+		{
+			groupItems.AddSimpleFor(m => m.CampusId).IsRequired(true).Editor(e => e.SelectBox().Width(300));
+			groupItems.AddSimpleFor(m => m.CategoryId).IsRequired(true).Editor(e => e.SelectBox().Width(300));
+																											   //groupItems.AddSimpleFor(m => m.ProductId).Editor(e => e.TextBox().Width(300));
+			groupItems.AddSimpleFor(m => m.ProductName).IsRequired(true).Editor(e => e.TextBox().Width(300));
+			groupItems.AddSimpleFor(m => m.Units).IsRequired(true).Editor(e => e.TextBox().Width(300));
+			groupItems.AddSimpleFor(m => m.QuantityPerUnit).IsRequired(true).Editor(e => e.NumberBox().Width(300));
+			groupItems.AddSimpleFor(m => m.PurchaseUnit).Editor(e => e.TextBox().Width(300));
+			groupItems.AddSimpleFor(m => m.MinStock).Editor(e => e.NumberBox().Width(300));
+		});
+	}))
+	)
+	.OnToolbarPreparing("toolbar_preparing")
+	)
+</text>);
+		tabs.Add().Title("Assets")
+			.Icon("fa fa-car")
+			.Template(@<text>
+					   	<div class="row">
+					   		<div class="col-md-12">
+					   			@*<partial name="_PartialDailyVisits" />*@
+			@(Html.DevExtreme().DataGrid<EduERP.Areas.Logistics.Models.StockAsset>()
+						.DataSource(ds => ds.Mvc()
+						.Controller("StockAssetsWebAPI")
+						.LoadAction("Get")
+						.InsertAction("Post")
+						.UpdateAction("Put")
+						.DeleteAction("Delete")
+						.Key("ProductId")
+						.LoadParams(new { campusno = new JS("getAssetCampus") })
+						)
+						.RemoteOperations(false)
+						.ID("AssetsGrid")
+						.AllowColumnReordering(false)
+						.RowAlternationEnabled(true)
+						.ShowColumnLines(true)
+						.Selection(s => s.Mode(SelectionMode.Multiple).ShowCheckBoxesMode(GridSelectionShowCheckBoxesMode.Always))
+						.FilterRow(f => f.Visible(true))
+						.ShowBorders(true)
+						.Width("100%")
+						.NoDataText("Stock Record Empty.")
+						.Paging(p => p.PageSize(12))
+						.Pager(p => p
+						.ShowPageSizeSelector(true)
+						.AllowedPageSizes(new[] { 12, 25, 50, 100 })
+						.ShowInfo(true)
+						.InfoText("Page {0} of {1} | Total Items: {2}")
+						)
+						.SearchPanel(s => s
+						.Visible(true)
+						.HighlightCaseSensitive(false)
+						)
+						.FocusedRowEnabled(true)
+						.Columns(columns =>
+						{
+							columns.AddFor(m => m.ProductId).Caption("SNo").Alignment(HorizontalAlignment.Left).Width(80).AllowEditing(false);
+
+							columns.AddFor(m => m.ProductName).Width(500).Caption("Item");
+
+							columns.AddFor(m => m.CategoryId).Width(150).Caption("Category")
+							.Lookup(lookup => lookup
+							.DataSource("getAssetCategories")
+							.ValueExpr("Value")
+							.DisplayExpr("Text"));
+
+							columns.AddFor(m => m.SubCategory).Width(150).Caption("Sub Category")
+							.Lookup(lookup => lookup
+							.DataSource("getAssetSubCategories")
+							.ValueExpr("Value")
+							.DisplayExpr("Text"));
+
+							columns.AddFor(m => m.CampusId).Visible(false).AllowEditing(false).Caption("Campus")
+							.Lookup(lookup => lookup
+							.DataSource(d => d.Mvc().Controller("LookUps").LoadAction("LookupCampus").Key("Value"))
+							.ValueExpr("Value")
+							.DisplayExpr("Text"));
+
+							columns.Add()
+							.Type(GridCommandColumnType.Buttons)
+							.Caption("#")
+							.Width(100)
+							.Buttons(b =>
+							{
+								b.Add().Name(GridColumnButtonName.Edit).Hint("Update Item");
+																				 			// b.Add().Name(GridColumnButtonName.Delete).Hint("Remove this Item");
+							});
+						})
+						.Editing(e => e
+						.AllowUpdating(true)
+						.AllowDeleting(true)
+						.UseIcons(true)
+						.Texts(t => t.ConfirmDeleteTitle("Confirmation").ConfirmDeleteMessage("You can Only remove Items without Captured Orders and Receipts. Proceed?"))
+						.Mode(GridEditMode.Popup)
+						.Popup(p => p
+						.Title("ITEM DETAILS :: EDIT FORM")
+						.ShowTitle(true)
+						.Width(700)
+						.Height(450)
+						.Position(pos => pos
+						.My(HorizontalAlignment.Center, VerticalAlignment.Center)
+						.At(HorizontalAlignment.Center, VerticalAlignment.Center)
+						.Of(new JS("window"))
+						)
+						)
+						.Form(f => f.Items(items =>
+						{
+							items.AddGroup()
+							.ColCount(2)
+							.ColSpan(2)
+							.Items(groupItems =>
+							{
+								groupItems.AddSimpleFor(m => m.CampusId).IsRequired(true).Editor(e => e.SelectBox().Width(300));
+								groupItems.AddSimpleFor(m => m.CategoryId).IsRequired(true).Editor(e => e.SelectBox().Width(300));
+								groupItems.AddSimpleFor(m => m.SubCategory).IsRequired(true).Editor(e => e.SelectBox().Width(300));
+																																	//groupItems.AddSimpleFor(m => m.ProductId).Editor(e => e.TextBox().Width(300));
+								groupItems.AddSimpleFor(m => m.ProductName).IsRequired(true).Editor(e => e.TextBox().Width(300));
+							});
+						}))
+						)
+						.OnToolbarPreparing("toolbar_asset_preparing")
+						)
+		</div>
+	</div>
+</text>);
+	})
+)
