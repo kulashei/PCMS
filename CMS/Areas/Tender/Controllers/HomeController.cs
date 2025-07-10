@@ -1,15 +1,14 @@
 ﻿using CMS.Areas.Admin.Controllers;
-using CMS.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CMS.Areas.Admin.Controllers
+namespace CMS.Areas.Tender.Controllers
 {
     public class HomeController : BaseController
     {
         public IActionResult Index()
         {
-            ViewBag.Breadcrumb = "Admin Dashboard";
-            ViewBag.PageTitle = "Admin";
+            ViewBag.Breadcrumb = "Tender Dashboard";
+            ViewBag.PageTitle = "Tender";
             return View();
         }
     }

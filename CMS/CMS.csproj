@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
@@ -16,6 +16,30 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Areas\Accounts\Controllers\" />
+	  <Folder Include="Areas\Accounts\Data\" />
+	  <Folder Include="Areas\Accounts\Models\" />
+	  <Folder Include="Areas\Accounts\Views\" />
+	  <Folder Include="Areas\Contracts\Data\" />
+	  <Folder Include="Areas\Contracts\Models\" />
+	  <Folder Include="Areas\Contracts\Views\ContractManagement\" />
+	  <Folder Include="Areas\Contracts\Views\ContractPaf\" />
+	  <Folder Include="Areas\HR\Controllers\" />
+	  <Folder Include="Areas\HR\Data\" />
+	  <Folder Include="Areas\HR\Models\" />
+	  <Folder Include="Areas\HR\Views\" />
+	  <Folder Include="Areas\Payments\Controllers\" />
+	  <Folder Include="Areas\Payments\Data\" />
+	  <Folder Include="Areas\Payments\Models\" />
+	  <Folder Include="Areas\Payments\Views\" />
+	  <Folder Include="wwwroot\appjs\Admin\" />
+	  <Folder Include="wwwroot\appjs\Tender\" />
+	  <Folder Include="wwwroot\appjs\Programmes\" />
+	</ItemGroup>
+
+	 
  
 	<ProjectExtensions>
 		<VisualStudio>

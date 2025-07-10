@@ -1,8 +1,7 @@
 (function ($) {
     'use strict';
     $(window).on('load', function () {
-
-
+        
         //------------------------------------------------------------------------------------------------------------------
         // Overlay Scroll Bar Init
         //------------------------------------------------------------------------------------------------------------------
@@ -14,6 +13,9 @@
         // Space In Window For Header
         //------------------------------------------------------------------------------------------------------------------
         $('body').has('.header').addClass('body-p-top');
+        
+        
+        
 
 
 
@@ -753,9 +755,14 @@
         // Template Sidebar Dropdown
         //------------------------------------------------------------------------------------------------------------------
         $('.sidebar-link-group-title').on('click', function () {
-            if (!$('.main-sidebar').hasClass('horizontal-menu')) {
-                $(this).siblings('.sidebar-link-group').slideToggle(300);
-            }
+                //$(this).siblings('.sidebar-link-group').slideToggle(300);
+            var clickedList = $(this).siblings('.sidebar-link-group');
+
+            // Slide up all other lists
+            $('.sidebar-link-group').not(clickedList).slideUp(300);
+
+            // Toggle this one
+            clickedList.slideToggle(300);
         });
         $('.sidebar-item').hover(function () {
             if ($('.main-sidebar').hasClass('horizontal-menu')) {

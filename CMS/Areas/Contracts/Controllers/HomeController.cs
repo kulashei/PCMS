@@ -1,8 +1,7 @@
 ﻿using CMS.Areas.Admin.Controllers;
-using CMS.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CMS.Areas.Admin.Controllers
+namespace CMS.Areas.Contracts.Controllers
 {
     public class HomeController : BaseController
     {
