@@ -17,15 +17,15 @@ public partial class VwProgram
 
     public string ProgramBen { get; set; }
 
-    public DateOnly? ProgramStartDate { get; set; }
+    public DateTime? ProgramStartDate { get; set; }
 
-    public DateOnly? ProgramEndDate { get; set; }
+    public DateTime? ProgramEndDate { get; set; }
 
     public bool ProgramApproved { get; set; }
 
     public int ProgramUserId { get; set; }
 
-    public DateOnly? ProgramCreatedAt { get; set; }
+    public DateTime? ProgramCreatedAt { get; set; }
 
     public int ProgramTypeId { get; set; }
 

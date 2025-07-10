@@ -17,7 +17,7 @@ public partial class ProgramCost
 
     public string Currency { get; set; }
 
-    public DateOnly ValueDate { get; set; }
+    public DateTime ValueDate { get; set; }
 
     public int? CreatedBy { get; set; }
 

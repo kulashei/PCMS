@@ -13,7 +13,7 @@ public partial class TicketResolved
 
     public string Resolution { get; set; }
 
-    public DateOnly? ResolvedDate { get; set; }
+    public DateTime? ResolvedDate { get; set; }
 
     public bool Confirmed { get; set; }
 

@@ -23,9 +23,9 @@ public partial class BoqDamage
 
     public double PreviousAmount { get; set; }
 
-    public DateOnly StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
-    public DateOnly EndDate { get; set; }
+    public DateTime EndDate { get; set; }
 
     public short DelayDays { get; set; }
 

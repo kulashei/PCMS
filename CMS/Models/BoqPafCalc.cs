@@ -43,11 +43,11 @@ public partial class BoqPafCalc
 
     public int CreatedBy { get; set; }
 
-    public DateOnly CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public int? UpdatedBy { get; set; }
 
-    public DateOnly? UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 
     public virtual BidWeit BidweitFkNavigation { get; set; }
 

@@ -13,7 +13,7 @@ public partial class Ipcfront
 
     public string CertDesc { get; set; }
 
-    public DateOnly CertDate { get; set; }
+    public DateTime CertDate { get; set; }
 
     public DateTime Ipcdate { get; set; }
 

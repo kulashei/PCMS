@@ -23,11 +23,11 @@ public partial class CoaAccountJournalEntryItemReconcile
 
     public string CreatedBy { get; set; }
 
-    public DateOnly CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public string UpdatedBy { get; set; }
 
-    public DateOnly? UpdatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 
     public virtual ICollection<CoaAccountJournalEntryItem> CoaAccountJournalEntryItems { get; set; } = new List<CoaAccountJournalEntryItem>();
 }

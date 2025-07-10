@@ -21,11 +21,11 @@ public partial class PortalUserRole
 
     public int? CreatedBy { get; set; }
 
-    public DateOnly? CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
 
     public int? ModifiedBy { get; set; }
 
-    public DateOnly? ModifiedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
 
     public virtual PortalRole RoleFkNavigation { get; set; }
 

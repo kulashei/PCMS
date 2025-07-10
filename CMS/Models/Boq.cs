@@ -15,11 +15,11 @@ public partial class Boq
 
     public bool IsLate { get; set; }
 
-    public DateOnly BillDate { get; set; }
+    public DateTime BillDate { get; set; }
 
-    public DateOnly? WorkStartDate { get; set; }
+    public DateTime? WorkStartDate { get; set; }
 
-    public DateOnly? WorkEndDate { get; set; }
+    public DateTime? WorkEndDate { get; set; }
 
     public double ActivityAmount { get; set; }
 
@@ -63,7 +63,7 @@ public partial class Boq
 
     public DateTime? UpdatedAt { get; set; }
 
-    public DateOnly? PafMonth { get; set; }
+    public DateTime? PafMonth { get; set; }
 
     public virtual BoqCat BoqCatFkNavigation { get; set; }
 

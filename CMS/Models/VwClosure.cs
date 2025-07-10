@@ -15,9 +15,9 @@ public partial class VwClosure
 
     public string ApprovedByName { get; set; }
 
-    public DateOnly ApprovedDate { get; set; }
+    public DateTime ApprovedDate { get; set; }
 
-    public DateOnly CompletedDate { get; set; }
+    public DateTime CompletedDate { get; set; }
 
     public string Reason { get; set; }
 

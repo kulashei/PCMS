@@ -17,7 +17,7 @@ public partial class BidClause
 
     public int CreatedBy { get; set; }
 
-    public DateOnly CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public virtual Bid BidFkNavigation { get; set; }
 

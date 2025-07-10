@@ -11,7 +11,7 @@ public partial class BoqPaf
 
     public int BoqFk { get; set; }
 
-    public DateOnly PafMonth { get; set; }
+    public DateTime PafMonth { get; set; }
 
     public string Remarks { get; set; }
 

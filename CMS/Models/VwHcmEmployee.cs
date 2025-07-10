@@ -25,7 +25,7 @@ public partial class VwHcmEmployee
 
     public string Mobile { get; set; }
 
-    public DateOnly? BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 
     public string Sex { get; set; }
 

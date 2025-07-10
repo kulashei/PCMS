@@ -9,11 +9,11 @@ public partial class Voext
 
     public int ContractFk { get; set; }
 
-    public DateOnly CompDate { get; set; }
+    public DateTime CompDate { get; set; }
 
-    public DateOnly NewDate { get; set; }
+    public DateTime NewDate { get; set; }
 
-    public DateOnly ReqDate { get; set; }
+    public DateTime ReqDate { get; set; }
 
     public string Reason { get; set; }
 
@@ -21,11 +21,11 @@ public partial class Voext
 
     public int CoNam { get; set; }
 
-    public DateOnly? CoStart { get; set; }
+    public DateTime? CoStart { get; set; }
 
     public int NoNam { get; set; }
 
-    public DateOnly? NoStart { get; set; }
+    public DateTime? NoStart { get; set; }
 
     public bool Archived { get; set; }
 
@@ -33,7 +33,7 @@ public partial class Voext
 
     public int? ApprovedBy { get; set; }
 
-    public DateOnly? ApprovedDate { get; set; }
+    public DateTime? ApprovedDate { get; set; }
 
     public int UserId { get; set; }
 

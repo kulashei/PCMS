@@ -7,7 +7,7 @@ public partial class IndicesNew
 {
     public int? Id { get; set; }
 
-    public DateOnly? Date { get; set; }
+    public DateTime? Date { get; set; }
 
     public double? Ll { get; set; }
 

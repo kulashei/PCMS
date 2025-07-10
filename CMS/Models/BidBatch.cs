@@ -11,9 +11,9 @@ public partial class BidBatch
 
     public string BatchTitle { get; set; }
 
-    public DateOnly AdvertDate { get; set; }
+    public DateTime AdvertDate { get; set; }
 
-    public DateOnly ClosingDate { get; set; }
+    public DateTime ClosingDate { get; set; }
 
     public int ProjectId { get; set; }
 

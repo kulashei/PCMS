@@ -23,7 +23,7 @@ public partial class Contractor
 
     public string Classification { get; set; }
 
-    public DateOnly? ExpirationDate { get; set; }
+    public DateTime? ExpirationDate { get; set; }
 
     public virtual ICollection<BidSublet> BidSublets { get; set; } = new List<BidSublet>();
 

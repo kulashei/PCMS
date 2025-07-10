@@ -17,7 +17,7 @@ public partial class ContractAdv
 
     public double AdvAmount { get; set; }
 
-    public DateOnly? ExpiresAt { get; set; }
+    public DateTime? ExpiresAt { get; set; }
 
     public int? CreatedBy { get; set; }
 

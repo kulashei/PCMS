@@ -11,7 +11,7 @@ public partial class PvGyaabaakrom
 
     public int BoqFk { get; set; }
 
-    public DateOnly Pvdate { get; set; }
+    public DateTime Pvdate { get; set; }
 
     public string Pvnumber { get; set; }
 
@@ -75,7 +75,7 @@ public partial class PvGyaabaakrom
 
     public int? ApprovedBy { get; set; }
 
-    public DateOnly? ApprovedAt { get; set; }
+    public DateTime? ApprovedAt { get; set; }
 
     public bool Archived { get; set; }
 }

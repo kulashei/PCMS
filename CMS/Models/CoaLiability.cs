@@ -11,7 +11,7 @@ public partial class CoaLiability
 
     public double Amount { get; set; }
 
-    public DateOnly RefDate { get; set; }
+    public DateTime RefDate { get; set; }
 
     public string RefNo { get; set; }
 
@@ -21,11 +21,11 @@ public partial class CoaLiability
 
     public string CreatedBy { get; set; }
 
-    public DateOnly CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public string UpdatedBy { get; set; }
 
-    public DateOnly? UpdatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 
     public virtual CoaAccount AccountFkNavigation { get; set; }
 }

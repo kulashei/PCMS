@@ -19,7 +19,7 @@ public partial class ContractAdvPmt
 
     public int? CreatedBy { get; set; }
 
-    public DateOnly CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public virtual Boq BoqFkNavigation { get; set; }
 

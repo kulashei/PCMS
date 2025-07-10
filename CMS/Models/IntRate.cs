@@ -7,7 +7,7 @@ public partial class IntRate
 {
     public int Id { get; set; }
 
-    public DateOnly Daet { get; set; }
+    public DateTime Daet { get; set; }
 
     public double Rate { get; set; }
 

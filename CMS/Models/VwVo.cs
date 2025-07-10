@@ -15,9 +15,9 @@ public partial class VwVo
 
     public string VNo { get; set; }
 
-    public DateOnly RequestedDate { get; set; }
+    public DateTime RequestedDate { get; set; }
 
-    public DateOnly? NewCompletionDate { get; set; }
+    public DateTime? NewCompletionDate { get; set; }
 
     public string RequestedReason { get; set; }
 
@@ -37,7 +37,7 @@ public partial class VwVo
 
     public string ApprovedText { get; set; }
 
-    public DateOnly? ApprovedAt { get; set; }
+    public DateTime? ApprovedAt { get; set; }
 
     public int ApprovedBy { get; set; }
 

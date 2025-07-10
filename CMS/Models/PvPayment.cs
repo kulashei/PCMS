@@ -9,7 +9,7 @@ public partial class PvPayment
 
     public int PvFk { get; set; }
 
-    public DateOnly PaymentDate { get; set; }
+    public DateTime PaymentDate { get; set; }
 
     public double AmountPaid { get; set; }
 
@@ -21,7 +21,7 @@ public partial class PvPayment
 
     public bool IntEnabled { get; set; }
 
-    public DateOnly? IntStartDate { get; set; }
+    public DateTime? IntStartDate { get; set; }
 
     public int UserId { get; set; }
 

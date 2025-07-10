@@ -15,7 +15,7 @@ public partial class CoaAccountJournalEntry
 
     public string EntryDesc { get; set; }
 
-    public DateOnly EntryDate { get; set; }
+    public DateTime EntryDate { get; set; }
 
     public string EntryState { get; set; }
 
@@ -25,11 +25,11 @@ public partial class CoaAccountJournalEntry
 
     public string CreatedBy { get; set; }
 
-    public DateOnly CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public string UpdatedBy { get; set; }
 
-    public DateOnly? UpdatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 
     public virtual ICollection<CoaAccountJournalEntryItem> CoaAccountJournalEntryItems { get; set; } = new List<CoaAccountJournalEntryItem>();
 

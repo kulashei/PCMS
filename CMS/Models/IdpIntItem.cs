@@ -15,11 +15,11 @@ public partial class IdpIntItem
 
     public double SubjectAmount { get; set; }
 
-    public DateOnly DelayFromDate { get; set; }
+    public DateTime DelayFromDate { get; set; }
 
-    public DateOnly DelayToDate { get; set; }
+    public DateTime DelayToDate { get; set; }
 
-    public DateOnly ApplyMonth { get; set; }
+    public DateTime ApplyMonth { get; set; }
 
     public double DelayAmount { get; set; }
 

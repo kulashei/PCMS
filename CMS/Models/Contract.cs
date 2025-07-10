@@ -15,21 +15,21 @@ public partial class Contract
 
     public bool Fixed { get; set; }
 
-    public DateOnly BaseMonth { get; set; }
+    public DateTime BaseMonth { get; set; }
 
-    public DateOnly AwardDate { get; set; }
+    public DateTime AwardDate { get; set; }
 
-    public DateOnly? SiteDate { get; set; }
+    public DateTime? SiteDate { get; set; }
 
-    public DateOnly StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
-    public DateOnly EndDate { get; set; }
+    public DateTime EndDate { get; set; }
 
-    public DateOnly? RevisedDate { get; set; }
+    public DateTime? RevisedDate { get; set; }
 
-    public DateOnly? ActualDate { get; set; }
+    public DateTime? ActualDate { get; set; }
 
-    public DateOnly? NoPafDate { get; set; }
+    public DateTime? NoPafDate { get; set; }
 
     public double AdjAmount { get; set; }
 

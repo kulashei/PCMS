@@ -19,7 +19,7 @@ public partial class Ticket
 
     public bool Editable { get; set; }
 
-    public DateOnly ReceivedAt { get; set; }
+    public DateTime ReceivedAt { get; set; }
 
     public int StatusId { get; set; }
 
@@ -31,7 +31,7 @@ public partial class Ticket
 
     public int SupportGroupId { get; set; }
 
-    public DateOnly? SupportGroupExpiryDate { get; set; }
+    public DateTime? SupportGroupExpiryDate { get; set; }
 
     public int CreatedBy { get; set; }
 

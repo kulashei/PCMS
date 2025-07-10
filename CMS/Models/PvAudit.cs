@@ -9,7 +9,7 @@ public partial class PvAudit
 
     public int ReceivedBy { get; set; }
 
-    public DateOnly? ReceivedDate { get; set; }
+    public DateTime? ReceivedDate { get; set; }
 
     public string AuditCode { get; set; }
 

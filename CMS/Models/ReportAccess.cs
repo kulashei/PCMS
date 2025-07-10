@@ -35,9 +35,9 @@ public partial class ReportAccess
 
     public int ProjId { get; set; }
 
-    public DateOnly? InitDate { get; set; }
+    public DateTime? InitDate { get; set; }
 
-    public DateOnly? EndDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     public int CreatedBy { get; set; }
 

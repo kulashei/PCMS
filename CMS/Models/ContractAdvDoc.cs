@@ -17,7 +17,7 @@ public partial class ContractAdvDoc
 
     public string Comment { get; set; }
 
-    public DateOnly DocDate { get; set; }
+    public DateTime DocDate { get; set; }
 
     public int? CreatedBy { get; set; }
 

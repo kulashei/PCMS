@@ -17,11 +17,11 @@ public partial class Program
 
     public string Ben { get; set; }
 
-    public DateOnly? StartDate { get; set; }
+    public DateTime? StartDate { get; set; }
 
-    public DateOnly? EndDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
-    public DateOnly? CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public int TypeFk { get; set; }
 

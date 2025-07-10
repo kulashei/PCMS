@@ -13,7 +13,7 @@ public partial class FundingExpenditure
 
     public double ExpendAmount { get; set; }
 
-    public DateOnly ExpendDate { get; set; }
+    public DateTime ExpendDate { get; set; }
 
     public string ExpendRemarks { get; set; }
 

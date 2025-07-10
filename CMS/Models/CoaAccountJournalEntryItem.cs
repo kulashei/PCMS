@@ -17,7 +17,7 @@ public partial class CoaAccountJournalEntryItem
 
     public string ItemDesc { get; set; }
 
-    public DateOnly ItemDate { get; set; }
+    public DateTime ItemDate { get; set; }
 
     public double? CreditAmount { get; set; }
 
@@ -29,11 +29,11 @@ public partial class CoaAccountJournalEntryItem
 
     public string CreatedBy { get; set; }
 
-    public DateOnly CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public string UpdatedBy { get; set; }
 
-    public DateOnly? UpdatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 
     public virtual CoaAccount AccountFkNavigation { get; set; }
 

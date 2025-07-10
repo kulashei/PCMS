@@ -19,7 +19,7 @@ public partial class TicketAProcess
 
     public int SupportGroupId { get; set; }
 
-    public DateOnly SupportGroupExpiryDate { get; set; }
+    public DateTime SupportGroupExpiryDate { get; set; }
 
     public int? UpdatedBy { get; set; }
 

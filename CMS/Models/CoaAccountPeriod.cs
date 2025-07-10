@@ -13,9 +13,9 @@ public partial class CoaAccountPeriod
 
     public string PeriodName { get; set; }
 
-    public DateOnly StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
-    public DateOnly EndDate { get; set; }
+    public DateTime EndDate { get; set; }
 
     public bool Active { get; set; }
 
@@ -23,11 +23,11 @@ public partial class CoaAccountPeriod
 
     public string CreatedBy { get; set; }
 
-    public DateOnly CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public string UpdatedBy { get; set; }
 
-    public DateOnly? UpdatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 
     public virtual ICollection<CoaAccountJournalEntry> CoaAccountJournalEntries { get; set; } = new List<CoaAccountJournalEntry>();
 

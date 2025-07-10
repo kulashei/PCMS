@@ -9,7 +9,7 @@ public partial class Index
 
     public bool Editable { get; set; }
 
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
 
     public double Ll { get; set; }
 
