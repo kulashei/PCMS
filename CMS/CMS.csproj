@@ -34,7 +34,6 @@
 	  <Folder Include="Areas\Payments\Data\" />
 	  <Folder Include="Areas\Payments\Models\" />
 	  <Folder Include="Areas\Payments\Views\" />
-	  <Folder Include="wwwroot\appjs\Admin\" />
 	  <Folder Include="wwwroot\appjs\Tender\" />
 	  <Folder Include="wwwroot\appjs\Programmes\" />
 	</ItemGroup>
