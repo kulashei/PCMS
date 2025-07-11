@@ -196,8 +196,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<IdpIntItem> IdpIntItems { get; set; }
 
-    public virtual DbSet<CMS.Models.Index> Indices { get; set; }
-
     public virtual DbSet<IndicesNew> IndicesNews { get; set; }
 
     public virtual DbSet<IntRate> IntRates { get; set; }
@@ -215,6 +213,8 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<MessageDocTemp> MessageDocTemps { get; set; }
 
     public virtual DbSet<Nationality> Nationalities { get; set; }
+
+    public virtual DbSet<PavIndex> PavIndices { get; set; }
 
     public virtual DbSet<Photograph> Photographs { get; set; }
 
@@ -3445,31 +3445,6 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("FK_idp_int_item_payment");
         });
 
-        modelBuilder.Entity<CMS.Models.Index>(entity =>
-        {
-            entity.HasKey(e => e.Date).HasName("PK__Indices__77387D065575A085");
-
-            entity.Property(e => e.Date).HasColumnType("datetime");
-            entity.Property(e => e.Cbnew).HasColumnName("CBNew");
-            entity.Property(e => e.Ce).HasColumnName("CE");
-            entity.Property(e => e.Ch).HasColumnName("CH");
-            entity.Property(e => e.Co).HasColumnName("CO");
-            entity.Property(e => e.Cogoods).HasColumnName("COgoods");
-            entity.Property(e => e.Ep).HasColumnName("EP");
-            entity.Property(e => e.Epnew).HasColumnName("EPNew");
-            entity.Property(e => e.Fe).HasColumnName("FE");
-            entity.Property(e => e.IndicesId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("IndicesID");
-            entity.Property(e => e.Ll).HasColumnName("LL");
-            entity.Property(e => e.Pc).HasColumnName("PC");
-            entity.Property(e => e.Pgnew).HasColumnName("PGNew");
-            entity.Property(e => e.Re).HasColumnName("RE");
-            entity.Property(e => e.Rlnew).HasColumnName("RLNew");
-            entity.Property(e => e.Ronew).HasColumnName("RONew");
-            entity.Property(e => e.Tinew).HasColumnName("TINew");
-        });
-
         modelBuilder.Entity<IndicesNew>(entity =>
         {
             entity
@@ -3798,6 +3773,31 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.NationalityName)
                 .IsRequired()
                 .HasMaxLength(200);
+        });
+
+        modelBuilder.Entity<PavIndex>(entity =>
+        {
+            entity.HasKey(e => e.Date).HasName("PK__Indices__77387D065575A085");
+
+            entity.Property(e => e.Date).HasColumnType("datetime");
+            entity.Property(e => e.Cbnew).HasColumnName("CBNew");
+            entity.Property(e => e.Ce).HasColumnName("CE");
+            entity.Property(e => e.Ch).HasColumnName("CH");
+            entity.Property(e => e.Co).HasColumnName("CO");
+            entity.Property(e => e.Cogoods).HasColumnName("COgoods");
+            entity.Property(e => e.Ep).HasColumnName("EP");
+            entity.Property(e => e.Epnew).HasColumnName("EPNew");
+            entity.Property(e => e.Fe).HasColumnName("FE");
+            entity.Property(e => e.IndicesId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("IndicesID");
+            entity.Property(e => e.Ll).HasColumnName("LL");
+            entity.Property(e => e.Pc).HasColumnName("PC");
+            entity.Property(e => e.Pgnew).HasColumnName("PGNew");
+            entity.Property(e => e.Re).HasColumnName("RE");
+            entity.Property(e => e.Rlnew).HasColumnName("RLNew");
+            entity.Property(e => e.Ronew).HasColumnName("RONew");
+            entity.Property(e => e.Tinew).HasColumnName("TINew");
         });
 
         modelBuilder.Entity<Photograph>(entity =>
