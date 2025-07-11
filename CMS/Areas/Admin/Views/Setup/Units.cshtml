@@ -1,5 +1,129 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using CMS.Models
+
+@(Html.DevExtreme().DataGrid<Unit>()
+    .Width("100%")
+    .Height(460)
+    .ID("gridUnitMeasure")
+    .OnInitialized("onUnitMeasureGridInitialize")
+    .ShowBorders(true)
+    .AllowColumnReordering(false)
+    .RowAlternationEnabled(true)
+    .ShowColumnLines(true)
+    .FocusedRowEnabled(true)
+    .OnRowInserted("onRowInserted")
+    .OnRowUpdated("onRowUpdated")
+    .OnRowRemoved("onRowRemoved")
+    //.OnDataErrorOccurred("onGridError")
+    .DataSource(ds => ds.Mvc()
+        .Controller("UnitMeasureApi")
+        .LoadAction("Get")
+        .InsertAction("Post")
+        .UpdateAction("Put")
+        .DeleteAction("Delete")
+        .Key("UnitId")
+    )
+    .RemoteOperations(true)
+    .SearchPanel(searchPanel => searchPanel
+        .Width(240)
+        .Visible(true)
+        .Placeholder("Search...")
+    )
+    .Selection(s => s.Mode(SelectionMode.Single))
+    .Editing(e => e
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
+    )
+    .Paging(p => p.PageSize(20))
+    .Pager(p => p
+        .ShowPageSizeSelector(true)
+        .AllowedPageSizes(new[] { 20, 25, 50, 100 })
+        .ShowInfo(true)
+        .InfoText("Page {0} of {1} | Total Items: {2}")
+    )
+    .Toolbar(t => t.Items(items =>
+        {
+            items.Add()
+                .Location(ToolbarItemLocation.Before)
+                .ShowText(ToolbarItemShowTextMode.Always)
+                .Name("addRowButton")
+                .Widget(w => w.Button()
+                    .Text("Add New")
+                    .Type(ButtonType.Default)
+                    .StylingMode(ButtonStylingMode.Contained)
+                    .Icon("fa-solid fa-plus")
+                    .HoverStateEnabled(true)
+                );
+
+            items.Add()
+                .Location(ToolbarItemLocation.After)
+                .Widget(w => w.Button()
+                    .Text("Refresh")
+                    .Type(ButtonType.Default)
+                    .StylingMode(ButtonStylingMode.Outlined)
+                    .Icon("fa-solid fa-arrows-rotate")
+                    .HoverStateEnabled(true)
+                    .OnClick("refreshGrid")
+                );
+
+            items.Add().Name("searchPanel");
+        })
+    )
+    .Columns(columns =>
+    {
+        columns.AddFor(m => m.UnitCode).Width("20%");
+        columns.AddFor(m => m.UnitDesc).Width("20%").Caption("Unit Description");
+        columns.Add()
+            .Width(80)
+            .Caption("Action")
+            .Type(GridCommandColumnType.Buttons)
+            .Buttons(b => { b.Add().Name(GridColumnButtonName.Edit).Icon("fa-solid fa-pen-to-square"); })
+            .Buttons(b => { b.Add().Name(GridColumnButtonName.Delete).Icon("fa-solid fa-trash-can"); });
+    })
+    .Editing(e => e
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
+        .Mode(GridEditMode.Popup)
+        .Popup(p => p
+            .Title("Unit of Measure")
+            .Width(500)
+            .Height(300)
+            .ShowTitle(true)
+            .ShowCloseButton(true)
+            .ToolbarItems(items =>
+            {
+                items.Add().Toolbar(Toolbar.Bottom).Location(ToolbarItemLocation.After)
+                    .Widget(w => w.Button()
+                        .Type(ButtonType.Default)
+                        @* .Icon("fa fa-save") *@
+                        .StylingMode(ButtonStylingMode.Outlined)
+                        .Text("Save")
+                        .OnClick("saveUnitMeasure")
+                    );
+                items.Add().Toolbar(Toolbar.Bottom).Location(ToolbarItemLocation.After)
+                    .Widget(w => w.Button()
+                        .Type(ButtonType.Default)
+                        .StylingMode(ButtonStylingMode.Outlined)
+                        .Text("Cancel")
+                        .OnClick("cancelUnitMeasure")
+                    );
+            })
+        )
+        .Form(f => f
+            .LabelLocation(FormLabelLocation.Top)
+            .Height("auto")
+            .ColCount(1)
+            .Items(item =>
+            {
+                item.AddSimpleFor(m => m.UnitCode).IsRequired(true);
+                item.AddSimpleFor(m => m.UnitDesc);
+            })
+        )
+    )
+ 
+)
+<script src="~/appjs/Admin/UnitMeasure.js"></script>
+
+
+
