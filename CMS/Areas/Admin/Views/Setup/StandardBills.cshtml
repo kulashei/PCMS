@@ -1,5 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using CMS.Areas.Admin
+@using CMS.Extensions
+@(Html.DevExtreme().DataGrid<StandardBillViewModel>()
+	.DefaultGridProperties()
+	.DefaultToolBar()
+	.DataSource(ds => ds.Mvc()
+		.Controller("StandardBillsApi")
+		.LoadAction("Get")
+		.InsertAction("Post")
+		.UpdateAction("Put")
+		.DeleteAction("Delete")
+		.Key("Id")
+	)
+	.RemoteOperations(true)
+	.Columns(columns =>
+	{
+		columns.AddFor(m => m.Name) 
+			.ValidationRules(vr =>
+			{
+				vr.AddRequired();
+				vr.AddStringLength()
+					.Min(3)
+					.Max(255);
+			});
+	})
+	.Editing(e => e
+		.Mode(GridEditMode.Popup)
+		.UseIcons(true)
+		.Popup(pp => pp.Height("auto").MaxWidth("500px"))
+		.Form(ff => ff.ColCount(1).LabelLocation(FormLabelLocation.Top))
+		.AllowAdding(true)
+		.AllowUpdating(true)
+		.AllowDeleting(true)))

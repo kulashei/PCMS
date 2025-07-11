@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+@(Html.DevExtreme().DataGrid<CMS.Models.Contractor>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("ContractorsApi")
+        .LoadAction("Get")
+        .InsertAction("Post")
+        .UpdateAction("Put")
+        .DeleteAction("Delete")
+        .Key("ContractorId")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+        columns.AddFor(m => m.ContractorId);
+
+        columns.AddFor(m => m.TinNo);
+
+        columns.AddFor(m => m.ContractorName);
+
+        columns.AddFor(m => m.Address);
+
+        columns.AddFor(m => m.ContactPerson);
+
+        columns.AddFor(m => m.Email);
+
+        columns.AddFor(m => m.Phone);
+
+        columns.AddFor(m => m.Type);
+
+        columns.AddFor(m => m.Classification);
+    })
+    .Editing(e => e
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
+    )
+)
