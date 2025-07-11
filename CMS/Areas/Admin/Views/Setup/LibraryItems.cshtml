@@ -16,7 +16,6 @@
         tabs.Add().Title("FIRST DIVISION")
             .Template(@<text>
 
-                           <div style="padding:20px">
                                @(Html.DevExtreme().DataGrid<StandardAct>()
                                    .Width("100%")
                                    .Height(460)
@@ -91,14 +90,12 @@
                                        })
                                    )
                                )
-                           </div>
 
                        </text>);
 
         tabs.Add().Title("STANDARD WORKS")
                 .Template(@<text>
 
-    <div style="padding:20px">
         @(Html.DevExtreme().DataGrid<StandardAct>()
                 .Width("100%")
                 .Height(460)
@@ -173,7 +170,6 @@
                 })
                 )
                 )
-    </div>
 
 </text>);
         ;

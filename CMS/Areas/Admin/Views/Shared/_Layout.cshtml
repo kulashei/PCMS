@@ -12,9 +12,8 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
     <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
-
-    <link href="~/css/devextreme/dx.light.css" rel="stylesheet" />
-
+    <link href="~/css/devextreme/dx.fluent.blue.light.css" rel="stylesheet" />
+@*     <link href="~/css/devextreme/dx.light.css" rel="stylesheet" /> *@
     <link rel="stylesheet" href="~/css/Site.css" />
 
 
@@ -61,8 +60,8 @@
     <div class="main-content">
 
         <div class="panel">
-            <div class="panel-header">
-                @(ViewBag.Breadcrumb ?? "Dashboard")
+            <div class="panel-header" style="background-color:#1459AE ; color:white; font-weight:bold" >
+                 @(ViewBag.Breadcrumb ?? "Dashboard")
             </div>
 
             <div class="panel-body">
