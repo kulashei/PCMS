@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using CMS.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS.Data;
 
@@ -15,8 +15,6 @@ public partial class AppDbContext : DbContext
         : base(options)
     {
     }
-
-    public virtual DbSet<Assembly> Assemblies { get; set; }
 
     public virtual DbSet<Bank> Banks { get; set; }
 
@@ -154,6 +152,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Currency> Currencies { get; set; }
 
+    public virtual DbSet<District> Districts { get; set; }
+
     public virtual DbSet<DocMove> DocMoves { get; set; }
 
     public virtual DbSet<DocPoss> DocPosses { get; set; }
@@ -196,7 +196,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<IdpIntItem> IdpIntItems { get; set; }
 
-    public virtual DbSet< CMS.Models.Index> Indices { get; set; }
+    public virtual DbSet<CMS.Models.Index> Indices { get; set; }
 
     public virtual DbSet<IndicesNew> IndicesNews { get; set; }
 
@@ -236,7 +236,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<PortalSetting> PortalSettings { get; set; }
 
-    public virtual DbSet<CMS.Models.PortalTab> PortalTabs { get; set; }
+    public virtual DbSet<PortalTab> PortalTabs { get; set; }
 
     public virtual DbSet<PortalTabGroup> PortalTabGroups { get; set; }
 
@@ -250,8 +250,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<PortalUserStatus> PortalUserStatuses { get; set; }
 
-    public virtual DbSet<CMS.Models.Program> Programs { get; set; }
-
     public virtual DbSet<ProgramAgent> ProgramAgents { get; set; }
 
     public virtual DbSet<ProgramCost> ProgramCosts { get; set; }
@@ -259,6 +257,8 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<ProgramDoc> ProgramDocs { get; set; }
 
     public virtual DbSet<ProgramType> ProgramTypes { get; set; }
+
+    public virtual DbSet<Programme> Programmes { get; set; }
 
     public virtual DbSet<Project> Projects { get; set; }
 
@@ -473,34 +473,10 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<WebLink> WebLinks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=SQL1004.site4now.net;Initial Catalog=db_ab3184_gha;User Id=db_ab3184_gha_admin;Password=Fas000502");
+        => optionsBuilder.UseSqlServer("Name=Web");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Assembly>(entity =>
-        {
-            entity.ToTable("Assembly");
-
-            entity.Property(e => e.AssemblyId).HasColumnName("AssemblyID");
-            entity.Property(e => e.AssemblyCode)
-                .IsRequired()
-                .HasMaxLength(10);
-            entity.Property(e => e.AssemblyName)
-                .IsRequired()
-                .HasMaxLength(250);
-            entity.Property(e => e.AssemblyType)
-                .IsRequired()
-                .HasMaxLength(20);
-            entity.Property(e => e.DistCode).HasMaxLength(10);
-            entity.Property(e => e.RegionId).HasColumnName("RegionID");
-
-            entity.HasOne(d => d.Region).WithMany(p => p.Assemblies)
-                .HasForeignKey(d => d.RegionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Assembly_Region");
-        });
-
         modelBuilder.Entity<Bank>(entity =>
         {
             entity.HasKey(e => e.BankId).HasName("PK__Bank__AA08CB330CA5D9DE");
@@ -632,7 +608,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("BidBase");
 
             entity.Property(e => e.BidBaseId).HasColumnName("BidBaseID");
-            entity.Property(e => e.AssemblyFk).HasColumnName("Assembly_FK");
             entity.Property(e => e.BaseNo)
                 .IsRequired()
                 .HasMaxLength(60)
@@ -657,17 +632,13 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.DistEnd).HasComment("The is the end section of the Road but in Bridge it is the No. of Spans");
             entity.Property(e => e.DistStart).HasComment("The is the start section of the Road but will be zero 4 Bridge");
             entity.Property(e => e.Distance).HasComment("This is the Road Length(km) or Bridge Length (m)");
+            entity.Property(e => e.DistrictFk).HasColumnName("District_FK");
             entity.Property(e => e.Notes).HasMaxLength(500);
             entity.Property(e => e.RoadFk).HasColumnName("Road_FK");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-
-            entity.HasOne(d => d.AssemblyFkNavigation).WithMany(p => p.BidBases)
-                .HasForeignKey(d => d.AssemblyFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BidBase__Assembly");
 
             entity.HasOne(d => d.BidFkNavigation).WithMany(p => p.BidBases)
                 .HasForeignKey(d => d.BidFk)
@@ -687,6 +658,11 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__BidBase__crdUser");
 
+            entity.HasOne(d => d.DistrictFkNavigation).WithMany(p => p.BidBases)
+                .HasForeignKey(d => d.DistrictFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__BidBase__District");
+
             entity.HasOne(d => d.RoadFkNavigation).WithMany(p => p.BidBases)
                 .HasForeignKey(d => d.RoadFk)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -698,6 +674,7 @@ public partial class AppDbContext : DbContext
             entity.ToTable("BidBatch");
 
             entity.Property(e => e.BidBatchId).HasColumnName("BidBatchID");
+            entity.Property(e => e.AdvertDate).HasColumnType("datetime");
             entity.Property(e => e.BatchNo)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -706,6 +683,7 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(350);
             entity.Property(e => e.BidTypeId).HasColumnName("BidTypeID");
             entity.Property(e => e.CatId).HasColumnName("CatID");
+            entity.Property(e => e.ClosingDate).HasColumnType("datetime");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -809,6 +787,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ContractFk).HasColumnName("contract_fk");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.Value).HasColumnName("value");
@@ -1134,6 +1113,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.BoqId).HasColumnName("BoqID");
             entity.Property(e => e.ApplyTerminationClause).HasColumnName("apply_termination_clause");
             entity.Property(e => e.Archived).HasColumnName("archived");
+            entity.Property(e => e.BillDate).HasColumnType("datetime");
             entity.Property(e => e.BillDesc)
                 .IsRequired()
                 .HasMaxLength(250);
@@ -1159,7 +1139,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.IpcPreparedBy).HasColumnName("ipcPreparedBy");
             entity.Property(e => e.IpcPreviousAmount).HasColumnName("ipcPreviousAmount");
             entity.Property(e => e.IpcTotalAmount).HasColumnName("ipcTotalAmount");
-            entity.Property(e => e.PafMonth).HasColumnName("paf_month");
+            entity.Property(e => e.PafMonth)
+                .HasColumnType("datetime")
+                .HasColumnName("paf_month");
             entity.Property(e => e.Remarks).HasMaxLength(250);
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -1168,6 +1150,8 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(80)
                 .HasColumnName("updated_by");
             entity.Property(e => e.UserId).HasColumnName("User_ID");
+            entity.Property(e => e.WorkEndDate).HasColumnType("datetime");
+            entity.Property(e => e.WorkStartDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.BoqCatFkNavigation).WithMany(p => p.Boqs)
                 .HasForeignKey(d => d.BoqCatFk)
@@ -1227,6 +1211,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.EndDate).HasColumnType("datetime");
             entity.Property(e => e.ItemName)
                 .IsRequired()
                 .HasMaxLength(250);
@@ -1234,6 +1219,7 @@ public partial class AppDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50);
             entity.Property(e => e.RecoveredBoqId).HasColumnName("recovered_boq_id");
+            entity.Property(e => e.StartDate).HasColumnType("datetime");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
@@ -1299,6 +1285,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ContractFk).HasColumnName("contract_fk");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.CurrentSum).HasColumnName("current_sum");
@@ -1410,6 +1397,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.ExecBoqFk).HasColumnName("exec_boq_fk");
+            entity.Property(e => e.PafMonth).HasColumnType("datetime");
             entity.Property(e => e.Remarks).HasMaxLength(250);
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -1447,6 +1435,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Covalue).HasColumnName("COvalue");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.Fuvalue).HasColumnName("FUvalue");
@@ -1460,7 +1449,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Rsvalue).HasColumnName("RSvalue");
             entity.Property(e => e.Tivalue).HasColumnName("TIvalue");
             entity.Property(e => e.TotalPaf).HasColumnName("TotalPAF");
-            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
             entity.HasOne(d => d.BidweitFkNavigation).WithMany(p => p.BoqPafCalcs)
@@ -1615,8 +1606,12 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Approved).HasColumnName("approved");
             entity.Property(e => e.ApprovedBy).HasColumnName("approved_by");
-            entity.Property(e => e.ApprovedDate).HasColumnName("approved_date");
-            entity.Property(e => e.CompletedDate).HasColumnName("completed_date");
+            entity.Property(e => e.ApprovedDate)
+                .HasColumnType("datetime")
+                .HasColumnName("approved_date");
+            entity.Property(e => e.CompletedDate)
+                .HasColumnType("datetime")
+                .HasColumnName("completed_date");
             entity.Property(e => e.ContractFk).HasColumnName("contract_fk");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -1769,17 +1764,22 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.FiscalYear, "UQ__coaAccou__359C71901B6CA0E2").IsUnique();
 
-            entity.HasIndex(e => e.StartDate, "UQ__coaAccou__4E19FCF6BB53B06B").IsUnique();
+            entity.HasIndex(e => e.StartDate, "UQ__coaAccou__4E19FCF623D98BA7").IsUnique();
 
-            entity.HasIndex(e => e.EndDate, "UQ__coaAccou__5A26560E166D0499").IsUnique();
+            entity.HasIndex(e => e.EndDate, "UQ__coaAccou__5A26560EFF0BB613").IsUnique();
 
             entity.Property(e => e.FiscalYearId).HasColumnName("FiscalYearID");
             entity.Property(e => e.CreatedBy)
                 .IsRequired()
                 .HasMaxLength(80);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.EndDate).HasColumnType("datetime");
             entity.Property(e => e.Remarks).HasMaxLength(350);
+            entity.Property(e => e.StartDate).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(80);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             entity.Property(e => e.YearCode)
                 .IsRequired()
                 .HasMaxLength(20);
@@ -1828,7 +1828,10 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .IsRequired()
                 .HasMaxLength(80);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.EntryDate).HasColumnType("datetime");
             entity.Property(e => e.EntryDesc)
                 .IsRequired()
                 .HasMaxLength(120);
@@ -1837,6 +1840,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.JournalFk).HasColumnName("Journal_FK");
             entity.Property(e => e.RefNo).HasMaxLength(30);
             entity.Property(e => e.UpdatedBy).HasMaxLength(80);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.FiscalPeriodFkNavigation).WithMany(p => p.CoaAccountJournalEntries)
                 .HasForeignKey(d => d.FiscalPeriodFk)
@@ -1860,15 +1864,19 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .IsRequired()
                 .HasMaxLength(80);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.EntryFk).HasColumnName("Entry_FK");
             entity.Property(e => e.EntryItemReconcileFk).HasColumnName("EntryItemReconcile_FK");
+            entity.Property(e => e.ItemDate).HasColumnType("datetime");
             entity.Property(e => e.ItemDesc)
                 .IsRequired()
                 .HasMaxLength(120);
             entity.Property(e => e.ItemRefNo).HasMaxLength(60);
             entity.Property(e => e.JournalFk).HasColumnName("Journal_FK");
             entity.Property(e => e.UpdatedBy).HasMaxLength(80);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.AccountFkNavigation).WithMany(p => p.CoaAccountJournalEntryItems)
                 .HasForeignKey(d => d.AccountFk)
@@ -1900,7 +1908,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .IsRequired()
                 .HasMaxLength(80);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.EntryType)
                 .IsRequired()
                 .HasMaxLength(80);
@@ -1908,6 +1918,7 @@ public partial class AppDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(80);
             entity.Property(e => e.UpdatedBy).HasMaxLength(80);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<CoaAccountPeriod>(entity =>
@@ -1920,14 +1931,19 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .IsRequired()
                 .HasMaxLength(80);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.EndDate).HasColumnType("datetime");
             entity.Property(e => e.FiscalYearFk).HasColumnName("FiscalYear_FK");
             entity.Property(e => e.PeriodCode).HasMaxLength(20);
             entity.Property(e => e.PeriodName)
                 .IsRequired()
                 .HasMaxLength(120);
             entity.Property(e => e.Remarks).HasMaxLength(350);
+            entity.Property(e => e.StartDate).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(80);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.FiscalYearFkNavigation).WithMany(p => p.CoaAccountPeriods)
                 .HasForeignKey(d => d.FiscalYearFk)
@@ -1971,13 +1987,17 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .IsRequired()
                 .HasMaxLength(80);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.ExpDate).HasColumnType("datetime");
             entity.Property(e => e.ExpDesc).HasMaxLength(120);
             entity.Property(e => e.ExpRefNo).HasMaxLength(50);
             entity.Property(e => e.Remarks)
                 .HasMaxLength(300)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedBy).HasMaxLength(80);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.AccountFkNavigation).WithMany(p => p.CoaExpenditures)
                 .HasForeignKey(d => d.AccountFk)
@@ -1996,13 +2016,17 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .IsRequired()
                 .HasMaxLength(80);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.RefDate).HasColumnType("datetime");
             entity.Property(e => e.RefDesc).HasMaxLength(120);
             entity.Property(e => e.RefNo).HasMaxLength(50);
             entity.Property(e => e.Remarks)
                 .HasMaxLength(300)
                 .IsUnicode(false);
             entity.Property(e => e.UpdatedBy).HasMaxLength(80);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.AccountFkNavigation).WithMany(p => p.CoaLiabilities)
                 .HasForeignKey(d => d.AccountFk)
@@ -2021,13 +2045,17 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedBy)
                 .IsRequired()
                 .HasMaxLength(80);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
             entity.Property(e => e.Remarks)
                 .HasMaxLength(300)
                 .IsUnicode(false);
+            entity.Property(e => e.RevDate).HasColumnType("datetime");
             entity.Property(e => e.RevDesc).HasMaxLength(120);
             entity.Property(e => e.RevRefNo).HasMaxLength(50);
             entity.Property(e => e.UpdatedBy).HasMaxLength(80);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.AccountFkNavigation).WithMany(p => p.CoaRevenues)
                 .HasForeignKey(d => d.AccountFk)
@@ -2044,6 +2072,7 @@ public partial class AppDbContext : DbContext
             entity.HasIndex(e => e.ContractCode, "UQ_Contract").IsUnique();
 
             entity.Property(e => e.ContractId).HasColumnName("ContractID");
+            entity.Property(e => e.ActualDate).HasColumnType("datetime");
             entity.Property(e => e.AdjAmount).HasComment("");
             entity.Property(e => e.Approved).HasColumnName("approved");
             entity.Property(e => e.ApprovedAt)
@@ -2051,6 +2080,8 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("approved_at");
             entity.Property(e => e.ApprovedBy).HasColumnName("approved_by");
             entity.Property(e => e.Archived).HasColumnName("archived");
+            entity.Property(e => e.AwardDate).HasColumnType("datetime");
+            entity.Property(e => e.BaseMonth).HasColumnType("datetime");
             entity.Property(e => e.BidId).HasColumnName("BidID");
             entity.Property(e => e.ContractCode)
                 .IsRequired()
@@ -2075,9 +2106,15 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.DeptId)
                 .HasDefaultValue(5)
                 .HasColumnName("Dept_ID");
+            entity.Property(e => e.EndDate).HasColumnType("datetime");
             entity.Property(e => e.Fixed).HasColumnName("fixed");
             entity.Property(e => e.ManagerFk).HasColumnName("Manager_FK");
-            entity.Property(e => e.NoPafDate).HasColumnName("no_paf_date");
+            entity.Property(e => e.NoPafDate)
+                .HasColumnType("datetime")
+                .HasColumnName("no_paf_date");
+            entity.Property(e => e.RevisedDate).HasColumnType("datetime");
+            entity.Property(e => e.SiteDate).HasColumnType("datetime");
+            entity.Property(e => e.StartDate).HasColumnType("datetime");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
@@ -2196,7 +2233,9 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.ExpiresAt).HasColumnName("expires_at");
+            entity.Property(e => e.ExpiresAt)
+                .HasColumnType("datetime")
+                .HasColumnName("expires_at");
             entity.Property(e => e.GuarantedAmount).HasColumnName("guaranted_amount");
             entity.Property(e => e.IsPlant).HasColumnName("is_plant");
             entity.Property(e => e.UpdatedAt)
@@ -2236,6 +2275,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.DocDate)
                 .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
                 .HasColumnName("doc_date");
             entity.Property(e => e.FlName)
                 .IsRequired()
@@ -2267,6 +2307,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ContractAdvFk).HasColumnName("contract_adv_fk");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.CurrentAmount).HasColumnName("current_amount");
@@ -2303,6 +2344,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+            entity.Property(e => e.ValueDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.Contract).WithMany(p => p.ContractCosts)
                 .HasForeignKey(d => d.ContractId)
@@ -2474,7 +2516,9 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.ExpiresAt).HasColumnName("expires_at");
+            entity.Property(e => e.ExpiresAt)
+                .HasColumnType("datetime")
+                .HasColumnName("expires_at");
             entity.Property(e => e.GuarantedAmount).HasColumnName("guaranted_amount");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -2504,6 +2548,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ContractPlantFk).HasColumnName("contract_plant_fk");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.CurrentAmount).HasColumnName("current_amount");
@@ -2637,6 +2682,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ContactPerson).HasMaxLength(50);
             entity.Property(e => e.ContractorName).HasMaxLength(120);
             entity.Property(e => e.Email).HasMaxLength(50);
+            entity.Property(e => e.ExpirationDate).HasColumnType("datetime");
             entity.Property(e => e.Phone).HasMaxLength(50);
             entity.Property(e => e.TinNo)
                 .HasMaxLength(50)
@@ -2727,6 +2773,29 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("ID");
+        });
+
+        modelBuilder.Entity<District>(entity =>
+        {
+            entity.ToTable("District");
+
+            entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
+            entity.Property(e => e.DistCode).HasMaxLength(10);
+            entity.Property(e => e.DistrictCode)
+                .IsRequired()
+                .HasMaxLength(10);
+            entity.Property(e => e.DistrictName)
+                .IsRequired()
+                .HasMaxLength(250);
+            entity.Property(e => e.DistrictType)
+                .IsRequired()
+                .HasMaxLength(20);
+            entity.Property(e => e.RegionId).HasColumnName("RegionID");
+
+            entity.HasOne(d => d.Region).WithMany(p => p.Districts)
+                .HasForeignKey(d => d.RegionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_District_Region");
         });
 
         modelBuilder.Entity<DocMove>(entity =>
@@ -3122,6 +3191,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreatedDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.ExpendDate).HasColumnType("datetime");
             entity.Property(e => e.ExpendRemarks).HasMaxLength(350);
             entity.Property(e => e.FiscalPeriodFk).HasColumnName("FiscalPeriod_FK");
             entity.Property(e => e.FundingBudgetFk).HasColumnName("FundingBudget_FK");
@@ -3148,6 +3218,7 @@ public partial class AppDbContext : DbContext
             entity.HasIndex(e => e.Number, "UQ_Employee").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.BirthDate).HasColumnType("datetime");
             entity.Property(e => e.DeptFk).HasColumnName("Dept_FK");
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FirstName)
@@ -3182,7 +3253,9 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Approved).HasColumnName("approved");
-            entity.Property(e => e.ApprovedAt).HasColumnName("approved_at");
+            entity.Property(e => e.ApprovedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("approved_at");
             entity.Property(e => e.ApprovedBy).HasColumnName("approved_by");
             entity.Property(e => e.Archived).HasColumnName("archived");
             entity.Property(e => e.ContractFk).HasColumnName("contract_fk");
@@ -3200,7 +3273,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Remarks)
                 .HasMaxLength(450)
                 .HasColumnName("remarks");
-            entity.Property(e => e.RequestedAt).HasColumnName("requested_at");
+            entity.Property(e => e.RequestedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("requested_at");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
@@ -3353,6 +3428,9 @@ public partial class AppDbContext : DbContext
             entity.HasIndex(e => new { e.PaymentFk, e.ApplyMonth }, "UQ_idp_int_item").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ApplyMonth).HasColumnType("datetime");
+            entity.Property(e => e.DelayFromDate).HasColumnType("datetime");
+            entity.Property(e => e.DelayToDate).HasColumnType("datetime");
             entity.Property(e => e.InterestFk).HasColumnName("interest_fk");
             entity.Property(e => e.PaymentFk).HasColumnName("payment_fk");
 
@@ -3371,6 +3449,7 @@ public partial class AppDbContext : DbContext
         {
             entity.HasKey(e => e.Date).HasName("PK__Indices__77387D065575A085");
 
+            entity.Property(e => e.Date).HasColumnType("datetime");
             entity.Property(e => e.Cbnew).HasColumnName("CBNew");
             entity.Property(e => e.Ce).HasColumnName("CE");
             entity.Property(e => e.Ch).HasColumnName("CH");
@@ -3402,6 +3481,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Ch).HasColumnName("CH");
             entity.Property(e => e.Co).HasColumnName("CO");
             entity.Property(e => e.Cogoods).HasColumnName("COgoods");
+            entity.Property(e => e.Date).HasColumnType("datetime");
             entity.Property(e => e.Ep).HasColumnName("EP");
             entity.Property(e => e.Epnew).HasColumnName("EPNew");
             entity.Property(e => e.Fe).HasColumnName("FE");
@@ -3436,7 +3516,9 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.Daet).HasColumnName("daet");
+            entity.Property(e => e.Daet)
+                .HasColumnType("datetime")
+                .HasColumnName("daet");
             entity.Property(e => e.Rate).HasColumnName("rate");
             entity.Property(e => e.Sours)
                 .HasMaxLength(120)
@@ -3572,6 +3654,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CertCode)
                 .IsRequired()
                 .HasMaxLength(50);
+            entity.Property(e => e.CertDate).HasColumnType("datetime");
             entity.Property(e => e.CertDesc)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -3903,11 +3986,11 @@ public partial class AppDbContext : DbContext
             entity.HasMany(d => d.TabFks).WithMany(p => p.CatFks)
                 .UsingEntity<Dictionary<string, object>>(
                     "PortalPageTab",
-                    r => r.HasOne<CMS.Models.PortalTab>().WithMany()
+                    r => r.HasOne<PortalTab>().WithMany()
                         .HasForeignKey("TabFk")
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK__mdlTabPag__Tab_F__3BEAD8AC"),
-                    l => l.HasOne<CMS.Models.PortalPageCate>().WithMany()
+                    l => l.HasOne<PortalPageCate>().WithMany()
                         .HasForeignKey("CatFk")
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK__mdlTabPag__PageC__3AF6B473"),
@@ -3917,7 +4000,6 @@ public partial class AppDbContext : DbContext
                         j.ToTable("portal_page_tab");
                         j.IndexerProperty<int>("CatFk").HasColumnName("cat_fk");
                         j.IndexerProperty<int>("TabFk").HasColumnName("tab_fk");
-                        
                     });
         });
 
@@ -3957,7 +4039,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("value");
         });
 
-        modelBuilder.Entity<CMS.Models.PortalTab>(entity =>
+        modelBuilder.Entity<PortalTab>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_TabItems");
 
@@ -4040,7 +4122,9 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Created).HasColumnName("created");
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Deleted).HasColumnName("deleted");
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             entity.Property(e => e.RoleFk).HasColumnName("role_fk");
             entity.Property(e => e.TabFk).HasColumnName("tab_fk");
             entity.Property(e => e.Updated).HasColumnName("updated");
@@ -4156,7 +4240,9 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Created).HasColumnName("created");
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Deleted).HasColumnName("deleted");
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             entity.Property(e => e.RoleFk).HasColumnName("role_fk");
             entity.Property(e => e.Updated).HasColumnName("updated");
             entity.Property(e => e.UserFk).HasColumnName("user_fk");
@@ -4188,58 +4274,6 @@ public partial class AppDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnName("name");
-        });
-
-        modelBuilder.Entity<CMS.Models.Program>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_Project");
-
-            entity.ToTable("program");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Approved)
-                .HasDefaultValue(true)
-                .HasColumnName("approved");
-            entity.Property(e => e.Ben)
-                .HasMaxLength(500)
-                .HasColumnName("ben");
-            entity.Property(e => e.Code)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("code");
-            entity.Property(e => e.CoverageFk)
-                .HasComment("Determines whether its regional etc. based on the code")
-                .HasColumnName("coverage_fk");
-            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
-            entity.Property(e => e.Desc)
-                .HasMaxLength(500)
-                .HasColumnName("desc");
-            entity.Property(e => e.EndDate).HasColumnName("end_date");
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(400)
-                .HasColumnName("name");
-            entity.Property(e => e.Obj)
-                .HasMaxLength(500)
-                .HasColumnName("obj");
-            entity.Property(e => e.StartDate).HasColumnName("start_date");
-            entity.Property(e => e.TypeFk).HasColumnName("type_fk");
-            entity.Property(e => e.UserFk).HasColumnName("user_fk");
-
-            entity.HasOne(d => d.CoverageFkNavigation).WithMany(p => p.Programs)
-                .HasForeignKey(d => d.CoverageFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Program_Coverage");
-
-            entity.HasOne(d => d.TypeFkNavigation).WithMany(p => p.Programs)
-                .HasForeignKey(d => d.TypeFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Project_ProgramType");
-
-            entity.HasOne(d => d.UserFkNavigation).WithMany(p => p.Programs)
-                .HasForeignKey(d => d.UserFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Program__CurrUse__253C7D7E");
         });
 
         modelBuilder.Entity<ProgramAgent>(entity =>
@@ -4295,7 +4329,9 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-            entity.Property(e => e.ValueDate).HasColumnName("value_date");
+            entity.Property(e => e.ValueDate)
+                .HasColumnType("datetime")
+                .HasColumnName("value_date");
 
             entity.HasOne(d => d.CatFkNavigation).WithMany(p => p.ProgramCosts)
                 .HasForeignKey(d => d.CatFk)
@@ -4358,6 +4394,64 @@ public partial class AppDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Programme>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Project");
+
+            entity.ToTable("programme");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Approved)
+                .HasDefaultValue(true)
+                .HasColumnName("approved");
+            entity.Property(e => e.Ben)
+                .HasMaxLength(500)
+                .HasColumnName("ben");
+            entity.Property(e => e.Code)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("code");
+            entity.Property(e => e.CoverageFk)
+                .HasComment("Determines whether its regional etc. based on the code")
+                .HasColumnName("coverage_fk");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Desc)
+                .HasMaxLength(500)
+                .HasColumnName("desc");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("end_date");
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(400)
+                .HasColumnName("name");
+            entity.Property(e => e.Obj)
+                .HasMaxLength(500)
+                .HasColumnName("obj");
+            entity.Property(e => e.StartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("start_date");
+            entity.Property(e => e.TypeFk).HasColumnName("type_fk");
+            entity.Property(e => e.UserFk).HasColumnName("user_fk");
+
+            entity.HasOne(d => d.CoverageFkNavigation).WithMany(p => p.Programmes)
+                .HasForeignKey(d => d.CoverageFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Program_Coverage");
+
+            entity.HasOne(d => d.TypeFkNavigation).WithMany(p => p.Programmes)
+                .HasForeignKey(d => d.TypeFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Project_ProgramType");
+
+            entity.HasOne(d => d.UserFkNavigation).WithMany(p => p.Programmes)
+                .HasForeignKey(d => d.UserFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Program__CurrUse__253C7D7E");
         });
 
         modelBuilder.Entity<Project>(entity =>
@@ -4434,7 +4528,9 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.PvId).HasColumnName("pv_id");
             entity.Property(e => e.Approved).HasColumnName("approved");
-            entity.Property(e => e.ApprovedAt).HasColumnName("approved_at");
+            entity.Property(e => e.ApprovedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("approved_at");
             entity.Property(e => e.ApprovedBy).HasColumnName("approved_by");
             entity.Property(e => e.Archived).HasColumnName("archived");
             entity.Property(e => e.AssocCode).HasMaxLength(20);
@@ -4460,7 +4556,9 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(550)
                 .IsUnicode(false);
             entity.Property(e => e.PaymentDesc).HasMaxLength(300);
-            entity.Property(e => e.Pvdate).HasColumnName("PVDate");
+            entity.Property(e => e.Pvdate)
+                .HasColumnType("datetime")
+                .HasColumnName("PVDate");
             entity.Property(e => e.PvgrossAmount).HasColumnName("PVGrossAmount");
             entity.Property(e => e.PvnetAmount).HasColumnName("PVNetAmount");
             entity.Property(e => e.Pvnumber)
@@ -4551,6 +4649,7 @@ public partial class AppDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(80)
                 .HasColumnName("PVNo");
+            entity.Property(e => e.ReceivedDate).HasColumnType("datetime");
             entity.Property(e => e.Remarks)
                 .HasMaxLength(350)
                 .IsUnicode(false);
@@ -4576,7 +4675,9 @@ public partial class AppDbContext : DbContext
                 .ToTable("pv_gyaabaakrom");
 
             entity.Property(e => e.Approved).HasColumnName("approved");
-            entity.Property(e => e.ApprovedAt).HasColumnName("approved_at");
+            entity.Property(e => e.ApprovedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("approved_at");
             entity.Property(e => e.ApprovedBy).HasColumnName("approved_by");
             entity.Property(e => e.Archived).HasColumnName("archived");
             entity.Property(e => e.AssocCode).HasMaxLength(20);
@@ -4602,7 +4703,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.PvId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("pv_id");
-            entity.Property(e => e.Pvdate).HasColumnName("PVDate");
+            entity.Property(e => e.Pvdate)
+                .HasColumnType("datetime")
+                .HasColumnName("PVDate");
             entity.Property(e => e.PvgrossAmount).HasColumnName("PVGrossAmount");
             entity.Property(e => e.PvnetAmount).HasColumnName("PVNetAmount");
             entity.Property(e => e.Pvnumber)
@@ -4647,6 +4750,7 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(80)
                 .HasColumnName("created_by");
             entity.Property(e => e.DeptId).HasColumnName("dept_id");
+            entity.Property(e => e.IntStartDate).HasColumnType("datetime");
             entity.Property(e => e.PvFk).HasColumnName("pv_fk");
             entity.Property(e => e.Remarks).HasMaxLength(250);
             entity.Property(e => e.UpdatedAt)
@@ -4834,8 +4938,12 @@ public partial class AppDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.EndDate).HasColumnName("end_date");
-            entity.Property(e => e.InitDate).HasColumnName("init_date");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("end_date");
+            entity.Property(e => e.InitDate)
+                .HasColumnType("datetime")
+                .HasColumnName("init_date");
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -5486,7 +5594,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.PriorityId)
                 .HasDefaultValue(1)
                 .HasColumnName("priority_id");
-            entity.Property(e => e.ReceivedAt).HasColumnName("received_at");
+            entity.Property(e => e.ReceivedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("received_at");
             entity.Property(e => e.StatusId)
                 .HasDefaultValue(1)
                 .HasColumnName("status_id");
@@ -5548,7 +5658,9 @@ public partial class AppDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("processed_date");
-            entity.Property(e => e.SupportGroupExpiryDate).HasColumnName("support_group_expiry_date");
+            entity.Property(e => e.SupportGroupExpiryDate)
+                .HasColumnType("datetime")
+                .HasColumnName("support_group_expiry_date");
             entity.Property(e => e.SupportGroupId).HasColumnName("support_group_id");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -5854,7 +5966,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Resolution)
                 .IsUnicode(false)
                 .HasColumnName("resolution");
-            entity.Property(e => e.ResolvedDate).HasColumnName("resolved_date");
+            entity.Property(e => e.ResolvedDate)
+                .HasColumnType("datetime")
+                .HasColumnName("resolved_date");
             entity.Property(e => e.ResolverId).HasColumnName("resolver_id");
             entity.Property(e => e.TicketId).HasColumnName("ticket_id");
             entity.Property(e => e.UpatedAt)
@@ -5963,6 +6077,7 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.VoId).HasColumnName("vo_id");
             entity.Property(e => e.AdditionDesc).HasMaxLength(250);
+            entity.Property(e => e.ApprovedDate).HasColumnType("datetime");
             entity.Property(e => e.Archived).HasColumnName("archived");
             entity.Property(e => e.ContractId).HasColumnName("ContractID");
             entity.Property(e => e.CreatedAt)
@@ -5973,8 +6088,10 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.DeptId)
                 .HasDefaultValue(5)
                 .HasColumnName("Dept_ID");
+            entity.Property(e => e.NewCompletionDate).HasColumnType("datetime");
             entity.Property(e => e.OmissionDesc).HasMaxLength(250);
             entity.Property(e => e.Remarks).HasMaxLength(350);
+            entity.Property(e => e.RequestedDate).HasColumnType("datetime");
             entity.Property(e => e.RequestedReason)
                 .IsRequired()
                 .HasMaxLength(350);
@@ -6080,7 +6197,6 @@ public partial class AppDbContext : DbContext
             entity.ToTable("voBase");
 
             entity.Property(e => e.VoBaseId).HasColumnName("voBaseID");
-            entity.Property(e => e.AssemblyFk).HasColumnName("Assembly_FK");
             entity.Property(e => e.BaseNo)
                 .IsRequired()
                 .HasMaxLength(60)
@@ -6101,6 +6217,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.DistEnd).HasComment("The is the end section of the Road but in Bridge it is the No. of Spans");
             entity.Property(e => e.DistStart).HasComment("The is the start section of the Road but will be zero 4 Bridge");
             entity.Property(e => e.Distance).HasComment("This is the Road Length(km) or Bridge Length (m)");
+            entity.Property(e => e.DistrictFk).HasColumnName("District_FK");
             entity.Property(e => e.Notes).HasMaxLength(500);
             entity.Property(e => e.RoadFk).HasColumnName("Road_FK");
             entity.Property(e => e.UpdatedAt)
@@ -6108,11 +6225,6 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
             entity.Property(e => e.VoFk).HasColumnName("vo_fk");
-
-            entity.HasOne(d => d.AssemblyFkNavigation).WithMany(p => p.VoBases)
-                .HasForeignKey(d => d.AssemblyFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__voBase__Assembly");
 
             entity.HasOne(d => d.BaseTypeFkNavigation).WithMany(p => p.VoBases)
                 .HasForeignKey(d => d.BaseTypeFk)
@@ -6127,6 +6239,11 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.CreatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__voBase__crdUser");
+
+            entity.HasOne(d => d.DistrictFkNavigation).WithMany(p => p.VoBases)
+                .HasForeignKey(d => d.DistrictFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__voBase__District");
 
             entity.HasOne(d => d.RoadFkNavigation).WithMany(p => p.VoBases)
                 .HasForeignKey(d => d.RoadFk)
@@ -6347,11 +6464,17 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Approved).HasColumnName("approved");
             entity.Property(e => e.ApprovedBy).HasColumnName("approved_by");
-            entity.Property(e => e.ApprovedDate).HasColumnName("approved_date");
+            entity.Property(e => e.ApprovedDate)
+                .HasColumnType("datetime")
+                .HasColumnName("approved_date");
             entity.Property(e => e.Archived).HasColumnName("archived");
             entity.Property(e => e.CoNam).HasColumnName("co_nam");
-            entity.Property(e => e.CoStart).HasColumnName("co_start");
-            entity.Property(e => e.CompDate).HasColumnName("comp_date");
+            entity.Property(e => e.CoStart)
+                .HasColumnType("datetime")
+                .HasColumnName("co_start");
+            entity.Property(e => e.CompDate)
+                .HasColumnType("datetime")
+                .HasColumnName("comp_date");
             entity.Property(e => e.ContractFk).HasColumnName("contract_fk");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -6362,9 +6485,13 @@ public partial class AppDbContext : DbContext
                 .HasDefaultValue(5)
                 .HasColumnName("dept_id");
             entity.Property(e => e.Dur).HasColumnName("dur");
-            entity.Property(e => e.NewDate).HasColumnName("new_date");
+            entity.Property(e => e.NewDate)
+                .HasColumnType("datetime")
+                .HasColumnName("new_date");
             entity.Property(e => e.NoNam).HasColumnName("no_nam");
-            entity.Property(e => e.NoStart).HasColumnName("no_start");
+            entity.Property(e => e.NoStart)
+                .HasColumnType("datetime")
+                .HasColumnName("no_start");
             entity.Property(e => e.Reason)
                 .IsRequired()
                 .HasMaxLength(350)
@@ -6372,7 +6499,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Remarks)
                 .HasMaxLength(350)
                 .HasColumnName("remarks");
-            entity.Property(e => e.ReqDate).HasColumnName("req_date");
+            entity.Property(e => e.ReqDate)
+                .HasColumnType("datetime")
+                .HasColumnName("req_date");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
@@ -6400,7 +6529,9 @@ public partial class AppDbContext : DbContext
             entity.ToTable("voext_cost");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ExtDate).HasColumnName("ext_date");
+            entity.Property(e => e.ExtDate)
+                .HasColumnType("datetime")
+                .HasColumnName("ext_date");
             entity.Property(e => e.ExtFk).HasColumnName("ext_fk");
 
             entity.HasOne(d => d.ExtFkNavigation).WithMany(p => p.VoextCosts)

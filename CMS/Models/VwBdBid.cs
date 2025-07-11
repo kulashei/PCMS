@@ -15,9 +15,9 @@ public partial class VwBdBid
 
     public string BidTitle { get; set; }
 
-    public DateTime AdvertDate { get; set; }
+    public DateOnly AdvertDate { get; set; }
 
-    public DateTime ClosingDate { get; set; }
+    public DateOnly ClosingDate { get; set; }
 
     public double Physical { get; set; }
 

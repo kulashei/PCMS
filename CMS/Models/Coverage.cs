@@ -9,5 +9,5 @@ public partial class Coverage
 
     public string Coverage1 { get; set; }
 
-    public virtual ICollection<Program> Programs { get; set; } = new List<Program>();
+    public virtual ICollection<Programme> Programmes { get; set; } = new List<Programme>();
 }

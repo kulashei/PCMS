@@ -23,5 +23,5 @@ public partial class ProgramDoc
 
     public bool Baked { get; set; }
 
-    public virtual Program ProgramFkNavigation { get; set; }
+    public virtual Programme ProgramFkNavigation { get; set; }
 }

@@ -19,7 +19,7 @@ public partial class VwTicket
 
     public string Content { get; set; }
 
-    public DateTime ReceivedAt { get; set; }
+    public DateOnly ReceivedAt { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -35,7 +35,7 @@ public partial class VwTicket
 
     public string SupportGroupName { get; set; }
 
-    public DateTime? SupportGroupExpiryDate { get; set; }
+    public DateOnly? SupportGroupExpiryDate { get; set; }
 
     public int StatusId { get; set; }
 

@@ -31,7 +31,7 @@ public partial class Project
 
     public virtual ICollection<BidBatch> BidBatches { get; set; } = new List<BidBatch>();
 
-    public virtual Program ProgramFkNavigation { get; set; }
+    public virtual Programme ProgramFkNavigation { get; set; }
 
     public virtual ProjectType TypeFkNavigation { get; set; }
 

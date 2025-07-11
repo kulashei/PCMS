@@ -31,7 +31,7 @@ public partial class Ticket
 
     public int SupportGroupId { get; set; }
 
-    public DateTime? SupportGroupExpiryDate { get; set; }
+    public DateOnly? SupportGroupExpiryDate { get; set; }
 
     public int CreatedBy { get; set; }
 

@@ -17,5 +17,5 @@ public partial class ProgramAgent
 
     public DateTime CreatedAt { get; set; }
 
-    public virtual Program ProgramFkNavigation { get; set; }
+    public virtual Programme ProgramFkNavigation { get; set; }
 }

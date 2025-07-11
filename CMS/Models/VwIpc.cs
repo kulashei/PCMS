@@ -25,7 +25,7 @@ public partial class VwIpc
 
     public string CertDesc { get; set; }
 
-    public DateTime CertDate { get; set; }
+    public DateOnly CertDate { get; set; }
 
     public DateTime Ipcdate { get; set; }
 
@@ -163,7 +163,7 @@ public partial class VwIpc
 
     public double AdvanceAmount { get; set; }
 
-    public DateTime? AdvanceExpiryDate { get; set; }
+    public DateOnly? AdvanceExpiryDate { get; set; }
 
     public string PlantBank { get; set; }
 
@@ -171,5 +171,5 @@ public partial class VwIpc
 
     public double PlantAmount { get; set; }
 
-    public DateTime? PlantExpiryDate { get; set; }
+    public DateOnly? PlantExpiryDate { get; set; }
 }

@@ -11,7 +11,7 @@ public partial class BidBase
 
     public int? ContractFk { get; set; }
 
-    public int AssemblyFk { get; set; }
+    public int DistrictFk { get; set; }
 
     public int RoadFk { get; set; }
 
@@ -58,8 +58,6 @@ public partial class BidBase
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual Assembly AssemblyFkNavigation { get; set; }
-
     public virtual ICollection<BidBill> BidBills { get; set; } = new List<BidBill>();
 
     public virtual BidClone BidCloneDestinationFkNavigation { get; set; }
@@ -79,6 +77,8 @@ public partial class BidBase
     public virtual ContractType ContractTypeFkNavigation { get; set; }
 
     public virtual PortalUser CreatedByNavigation { get; set; }
+
+    public virtual District DistrictFkNavigation { get; set; }
 
     public virtual Road RoadFkNavigation { get; set; }
 

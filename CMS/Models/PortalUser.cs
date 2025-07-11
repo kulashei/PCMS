@@ -93,7 +93,7 @@ public partial class PortalUser
 
     public virtual ICollection<PortalUserRole> PortalUserRoles { get; set; } = new List<PortalUserRole>();
 
-    public virtual ICollection<Program> Programs { get; set; } = new List<Program>();
+    public virtual ICollection<Programme> Programmes { get; set; } = new List<Programme>();
 
     public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
 

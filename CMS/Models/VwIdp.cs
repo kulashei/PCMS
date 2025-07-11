@@ -11,7 +11,7 @@ public partial class VwIdp
 
     public string IdpDesc { get; set; }
 
-    public DateTime RequestedAt { get; set; }
+    public DateOnly RequestedAt { get; set; }
 
     public string Remarks { get; set; }
 
@@ -23,7 +23,7 @@ public partial class VwIdp
 
     public bool Approved { get; set; }
 
-    public DateTime? ApprovedAt { get; set; }
+    public DateOnly? ApprovedAt { get; set; }
 
     public int? ApprovedBy { get; set; }
 
@@ -53,7 +53,7 @@ public partial class VwIdp
 
     public int BoqId { get; set; }
 
-    public DateTime? BillDate { get; set; }
+    public DateOnly? BillDate { get; set; }
 
     public string BillNo { get; set; }
 

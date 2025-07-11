@@ -13,21 +13,21 @@ public partial class VwVoext
 
     public string ContractTitle { get; set; }
 
-    public DateTime CompDate { get; set; }
+    public DateOnly CompDate { get; set; }
 
-    public DateTime ReqDate { get; set; }
+    public DateOnly ReqDate { get; set; }
 
     public int Dur { get; set; }
 
-    public DateTime NewDate { get; set; }
+    public DateOnly NewDate { get; set; }
 
     public int CoNam { get; set; }
 
-    public DateTime? CoStart { get; set; }
+    public DateOnly? CoStart { get; set; }
 
     public int NoNam { get; set; }
 
-    public DateTime? NoStart { get; set; }
+    public DateOnly? NoStart { get; set; }
 
     public string Reason { get; set; }
 
@@ -37,7 +37,7 @@ public partial class VwVoext
 
     public int? ApprovedBy { get; set; }
 
-    public DateTime? ApprovedDate { get; set; }
+    public DateOnly? ApprovedDate { get; set; }
 
     public string ApproverName { get; set; }
 
@@ -65,15 +65,15 @@ public partial class VwVoext
 
     public DateTime? UpdatedAt { get; set; }
 
-    public DateTime AwardDate { get; set; }
+    public DateOnly AwardDate { get; set; }
 
-    public DateTime StartDate { get; set; }
+    public DateOnly StartDate { get; set; }
 
-    public DateTime EndDate { get; set; }
+    public DateOnly EndDate { get; set; }
 
-    public DateTime? SiteDate { get; set; }
+    public DateOnly? SiteDate { get; set; }
 
-    public DateTime? RevisedDate { get; set; }
+    public DateOnly? RevisedDate { get; set; }
 
     public int ManagerFk { get; set; }
 

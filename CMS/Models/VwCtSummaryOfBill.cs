@@ -51,17 +51,17 @@ public partial class VwCtSummaryOfBill
 
     public string ContractDesc { get; set; }
 
-    public DateTime StartDate { get; set; }
+    public DateOnly StartDate { get; set; }
 
-    public DateTime EndDate { get; set; }
+    public DateOnly EndDate { get; set; }
 
-    public DateTime AwardDate { get; set; }
+    public DateOnly AwardDate { get; set; }
 
-    public DateTime? SiteDate { get; set; }
+    public DateOnly? SiteDate { get; set; }
 
-    public DateTime? RevisedDate { get; set; }
+    public DateOnly? RevisedDate { get; set; }
 
-    public DateTime? CompletionDate { get; set; }
+    public DateOnly? CompletionDate { get; set; }
 
     public string Currency { get; set; }
 

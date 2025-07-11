@@ -25,21 +25,21 @@ public partial class VwCtContract
 
     public bool Fixed { get; set; }
 
-    public DateTime BaseMonth { get; set; }
+    public DateOnly BaseMonth { get; set; }
 
-    public DateTime AwardDate { get; set; }
+    public DateOnly AwardDate { get; set; }
 
-    public DateTime? SiteDate { get; set; }
+    public DateOnly? SiteDate { get; set; }
 
-    public DateTime StartDate { get; set; }
+    public DateOnly StartDate { get; set; }
 
-    public DateTime EndDate { get; set; }
+    public DateOnly EndDate { get; set; }
 
-    public DateTime? RevisedDate { get; set; }
+    public DateOnly? RevisedDate { get; set; }
 
-    public DateTime? NoPafDate { get; set; }
+    public DateOnly? NoPafDate { get; set; }
 
-    public DateTime? CompletionDate { get; set; }
+    public DateOnly? CompletionDate { get; set; }
 
     public double AdjustmentAllowance { get; set; }
 
@@ -113,7 +113,7 @@ public partial class VwCtContract
 
     public string Currency { get; set; }
 
-    public DateTime ValueDate { get; set; }
+    public DateOnly ValueDate { get; set; }
 
     public int InterestId { get; set; }
 
@@ -141,5 +141,5 @@ public partial class VwCtContract
 
     public string ContractorClass { get; set; }
 
-    public DateTime? ContractorExpiryDate { get; set; }
+    public DateOnly? ContractorExpiryDate { get; set; }
 }

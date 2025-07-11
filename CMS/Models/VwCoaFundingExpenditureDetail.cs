@@ -9,7 +9,7 @@ public partial class VwCoaFundingExpenditureDetail
 
     public double ExpendAmount { get; set; }
 
-    public DateTime ExpendDate { get; set; }
+    public DateOnly ExpendDate { get; set; }
 
     public string ExpendRemarks { get; set; }
 
@@ -41,9 +41,9 @@ public partial class VwCoaFundingExpenditureDetail
 
     public string PeriodName { get; set; }
 
-    public DateTime PeriodStartDate { get; set; }
+    public DateOnly PeriodStartDate { get; set; }
 
-    public DateTime PeriodEndDate { get; set; }
+    public DateOnly PeriodEndDate { get; set; }
 
     public string PeriodRemarks { get; set; }
 
@@ -55,9 +55,9 @@ public partial class VwCoaFundingExpenditureDetail
 
     public string YearName { get; set; }
 
-    public DateTime YearStartDate { get; set; }
+    public DateOnly YearStartDate { get; set; }
 
-    public DateTime YearEndDate { get; set; }
+    public DateOnly YearEndDate { get; set; }
 
     public bool IsOpen { get; set; }
 

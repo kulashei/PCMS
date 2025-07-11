@@ -29,7 +29,7 @@ public partial class ProgramCost
 
     public virtual FundCategory CatFkNavigation { get; set; }
 
-    public virtual Program ProgramFkNavigation { get; set; }
+    public virtual Programme ProgramFkNavigation { get; set; }
 
     public virtual FundSource SourceFkNavigation { get; set; }
 }

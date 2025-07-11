@@ -11,7 +11,7 @@ public partial class VwBoqPafMonthlyValue
 
     public int PafId { get; set; }
 
-    public DateTime PafMonth { get; set; }
+    public DateOnly PafMonth { get; set; }
 
     public int PafCalcId { get; set; }
 

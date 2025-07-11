@@ -9,7 +9,7 @@ public partial class PvPayment
 
     public int PvFk { get; set; }
 
-    public DateTime PaymentDate { get; set; }
+    public DateOnly PaymentDate { get; set; }
 
     public double AmountPaid { get; set; }
 

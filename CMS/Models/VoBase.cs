@@ -11,7 +11,7 @@ public partial class VoBase
 
     public int VoFk { get; set; }
 
-    public int AssemblyFk { get; set; }
+    public int DistrictFk { get; set; }
 
     public int RoadFk { get; set; }
 
@@ -58,13 +58,13 @@ public partial class VoBase
 
     public int BaseTypeFk { get; set; }
 
-    public virtual Assembly AssemblyFkNavigation { get; set; }
-
     public virtual ContractType BaseTypeFkNavigation { get; set; }
 
     public virtual BidBase BidBaseFkNavigation { get; set; }
 
     public virtual PortalUser CreatedByNavigation { get; set; }
+
+    public virtual District DistrictFkNavigation { get; set; }
 
     public virtual Road RoadFkNavigation { get; set; }
 

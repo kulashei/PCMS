@@ -7,7 +7,7 @@ public partial class VwPv
 {
     public int PvId { get; set; }
 
-    public DateTime Pvdate { get; set; }
+    public DateOnly Pvdate { get; set; }
 
     public string Pvnumber { get; set; }
 
@@ -67,7 +67,7 @@ public partial class VwPv
 
     public bool Approved { get; set; }
 
-    public DateTime? ApprovedAt { get; set; }
+    public DateOnly? ApprovedAt { get; set; }
 
     public int? ApprovedBy { get; set; }
 
