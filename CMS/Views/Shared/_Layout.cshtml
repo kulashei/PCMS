@@ -28,7 +28,7 @@
 	<script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
 	<script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
 
-	
+	<script src="~/appjs/global/global.js" asp-append-version="true"></script>
 
 	<link rel="stylesheet" href="~/vendor/assets/vendor/css/all.min.css">
 	<link rel="stylesheet" href="~/vendor/assets/vendor/css/jquery-ui.min.css">
@@ -59,9 +59,15 @@
 <!-- main sidebar end -->
 <!-- main content start -->
 <div class="main-content">
+	<div class="panel">
+		<div class="panel-header" style="background-color:#1459AE ; color:white; font-weight:bold" >
+			@(ViewBag.Breadcrumb ?? "Dashboard")
+		</div>
 
-	<div >
-		@RenderBody()
+		<div class="panel-body">
+			@RenderBody()
+
+		</div>
 	</div>
 
 
