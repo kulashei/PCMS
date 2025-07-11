@@ -45,9 +45,8 @@ public class UnitMeasureApiController : Controller
             return BadRequest(GetFullErrorMessage(ModelState));
         
         if (_context.Units.Any(u => u.UnitCode == model.UnitCode))
-        {
-            return BadRequest(new { message = "UnitCode already exists." });
-        }
+            return BadRequest(new { message = "Unit Code already exists." });
+        
 
         var result = _context.Units.Add(model);
         await _context.SaveChangesAsync();
