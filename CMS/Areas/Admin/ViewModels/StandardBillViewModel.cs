@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CMS.Areas.Admin
+namespace CMS.Areas.Admin.ViewModels
 {
     public class StandardBillViewModel
     {

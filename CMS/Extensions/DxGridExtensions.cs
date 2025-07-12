@@ -32,7 +32,10 @@ namespace CMS.Extensions
                     .AllowedPageSizes([20, 25, 50, 100])
                     .ShowInfo(true)
                     .InfoText("Page {0} of {1} | Total Items: {2}")
-                );
+                )
+                .OnRowInserted("onRowInserted")
+                .OnRowUpdated("onRowUpdated")
+                .OnRowRemoved("onRowRemoved");
         }
 
         public static ButtonBuilder CustomToolButton(this ToolbarItemFactory builder)

@@ -1,4 +1,5 @@
 ﻿@using CMS.Areas.Admin
+@using CMS.Areas.Admin.ViewModels
 @using CMS.Extensions
 @(Html.DevExtreme().DataGrid<StandardBillViewModel>()
 	.DefaultGridProperties()
@@ -26,7 +27,7 @@
 	.Editing(e => e
 		.Mode(GridEditMode.Popup)
 		.UseIcons(true)
-		.Popup(pp => pp.Height("auto").MaxWidth("500px"))
+		.Popup(pp => pp.ShowCloseButton(true).Height("auto").MaxWidth("500px"))
 		.Form(ff => ff.ColCount(1).LabelLocation(FormLabelLocation.Top))
 		.AllowAdding(true)
 		.AllowUpdating(true)

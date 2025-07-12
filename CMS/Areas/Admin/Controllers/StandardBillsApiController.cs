@@ -12,12 +12,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using CMS.Data;
 using CMS.Models;
-using CMS.Areas.Admin;
+using CMS.Areas.Admin.ViewModels;
 
-namespace CMS.Controllers
+namespace CMS.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class StandardBillsApiController : Controller
+    public class StandardBillsApiController : BaseController
     {
         private AppDbContext _context;
 
@@ -38,8 +38,8 @@ namespace CMS.Controllers
             // If underlying data is a large SQL table, specify PrimaryKey and PaginateViaPrimaryKey.
             // This can make SQL execution plans more efficient.
             // For more detailed information, please refer to this discussion: https://github.com/DevExpress/DevExtreme.AspNet.Data/issues/336.
-            // loadOptions.PrimaryKey = new[] { "Id" };
-            // loadOptions.PaginateViaPrimaryKey = true;
+            loadOptions.PrimaryKey = new[] { "Id" };
+            loadOptions.PaginateViaPrimaryKey = true;
 
             return Json(await DataSourceLoader.LoadAsync(standardbills, loadOptions));
         }
@@ -75,9 +75,9 @@ namespace CMS.Controllers
 
             var validationModel = new StandardBillViewModel();
             PopulateModel(validationModel, valuesDict);
-
+            PropertyMapper.CopyProperties(model, validationModel);
             if (!TryValidateModel(validationModel))
-                return BadRequest(GetFullErrorMessage(ModelState)); 
+                return BadRequest(GetFullErrorMessage(ModelState));
 
             await _context.SaveChangesAsync();
             return Ok();
@@ -125,17 +125,6 @@ namespace CMS.Controllers
             }
         }
 
-        private string GetFullErrorMessage(ModelStateDictionary modelState)
-        {
-            var messages = new List<string>();
-
-            foreach (var entry in modelState)
-            {
-                foreach (var error in entry.Value.Errors)
-                    messages.Add(error.ErrorMessage);
-            }
-
-            return String.Join(" ", messages);
-        }
+       
     }
 }

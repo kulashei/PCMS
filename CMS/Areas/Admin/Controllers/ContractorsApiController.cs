@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using CMS.Areas.Admin.ViewModels;
 using CMS.Data;
 using CMS.Models;
 
@@ -20,13 +21,16 @@ namespace CMS.Areas.Admin.Controllers
     {
         private AppDbContext _context;
 
-        public ContractorsApiController(AppDbContext context) {
+        public ContractorsApiController(AppDbContext context)
+        {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(DataSourceLoadOptions loadOptions) {
-            var contractors = _context.Contractors.Select(i => new {
+        public async Task<IActionResult> Get(DataSourceLoadOptions loadOptions)
+        {
+            var contractors = _context.Contractors.Select(i => new
+            {
                 i.ContractorId,
                 i.TinNo,
                 i.ContractorName,
@@ -48,12 +52,16 @@ namespace CMS.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(string values) {
+        public async Task<IActionResult> Post(string values)
+        {
             var model = new Contractor();
             var valuesDict = JsonConvert.DeserializeObject<IDictionary>(values);
             PopulateModel(model, valuesDict);
 
-            if(!TryValidateModel(model))
+            var validationModel = new ContractorViewModel();
+            PopulateModel(validationModel, valuesDict);
+
+            if (!TryValidateModel(validationModel))
                 return BadRequest(GetFullErrorMessage(ModelState));
 
             var result = _context.Contractors.Add(model);
@@ -63,15 +71,21 @@ namespace CMS.Areas.Admin.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(int key, string values) {
+        public async Task<IActionResult> Put(int key, string values)
+        {
             var model = await _context.Contractors.FirstOrDefaultAsync(item => item.ContractorId == key);
-            if(model == null)
+            if (model == null)
                 return StatusCode(409, "Object not found");
 
             var valuesDict = JsonConvert.DeserializeObject<IDictionary>(values);
             PopulateModel(model, valuesDict);
 
-            if(!TryValidateModel(model))
+            var validationModel = new ContractorViewModel();
+            PopulateModel(validationModel, valuesDict);
+
+            PropertyMapper.CopyProperties(model, validationModel);
+
+            if (!TryValidateModel(validationModel))
                 return BadRequest(GetFullErrorMessage(ModelState));
 
             await _context.SaveChangesAsync();
@@ -79,7 +93,8 @@ namespace CMS.Areas.Admin.Controllers
         }
 
         [HttpDelete]
-        public async Task Delete(int key) {
+        public async Task Delete(int key)
+        {
             var model = await _context.Contractors.FirstOrDefaultAsync(item => item.ContractorId == key);
 
             _context.Contractors.Remove(model);
@@ -87,7 +102,8 @@ namespace CMS.Areas.Admin.Controllers
         }
 
 
-        private void PopulateModel(Contractor model, IDictionary values) {
+        private void PopulateModel(Contractor model, IDictionary values)
+        {
             string CONTRACTOR_ID = nameof(Contractor.ContractorId);
             string TIN_NO = nameof(Contractor.TinNo);
             string CONTRACTOR_NAME = nameof(Contractor.ContractorName);
@@ -98,52 +114,110 @@ namespace CMS.Areas.Admin.Controllers
             string TYPE = nameof(Contractor.Type);
             string CLASSIFICATION = nameof(Contractor.Classification);
 
-            if(values.Contains(CONTRACTOR_ID)) {
+            if (values.Contains(CONTRACTOR_ID))
+            {
                 model.ContractorId = Convert.ToInt32(values[CONTRACTOR_ID]);
             }
 
-            if(values.Contains(TIN_NO)) {
+            if (values.Contains(TIN_NO))
+            {
                 model.TinNo = Convert.ToString(values[TIN_NO]);
             }
 
-            if(values.Contains(CONTRACTOR_NAME)) {
+            if (values.Contains(CONTRACTOR_NAME))
+            {
                 model.ContractorName = Convert.ToString(values[CONTRACTOR_NAME]);
             }
 
-            if(values.Contains(ADDRESS)) {
+            if (values.Contains(ADDRESS))
+            {
                 model.Address = Convert.ToString(values[ADDRESS]);
             }
 
-            if(values.Contains(CONTACT_PERSON)) {
+            if (values.Contains(CONTACT_PERSON))
+            {
                 model.ContactPerson = Convert.ToString(values[CONTACT_PERSON]);
             }
 
-            if(values.Contains(EMAIL)) {
+            if (values.Contains(EMAIL))
+            {
                 model.Email = Convert.ToString(values[EMAIL]);
             }
 
-            if(values.Contains(PHONE)) {
+            if (values.Contains(PHONE))
+            {
                 model.Phone = Convert.ToString(values[PHONE]);
             }
 
-            if(values.Contains(TYPE)) {
+            if (values.Contains(TYPE))
+            {
                 model.Type = Convert.ToString(values[TYPE]);
             }
 
-            if(values.Contains(CLASSIFICATION)) {
+            if (values.Contains(CLASSIFICATION))
+            {
                 model.Classification = Convert.ToString(values[CLASSIFICATION]);
             }
         }
 
-        private string GetFullErrorMessage(ModelStateDictionary modelState) {
-            var messages = new List<string>();
+        private void PopulateModel(ContractorViewModel model, IDictionary values)
+        {
+            string CONTRACTOR_ID = nameof(Contractor.ContractorId);
+            string TIN_NO = nameof(Contractor.TinNo);
+            string CONTRACTOR_NAME = nameof(Contractor.ContractorName);
+            string ADDRESS = nameof(Contractor.Address);
+            string CONTACT_PERSON = nameof(Contractor.ContactPerson);
+            string EMAIL = nameof(Contractor.Email);
+            string PHONE = nameof(Contractor.Phone);
+            string TYPE = nameof(Contractor.Type);
+            string CLASSIFICATION = nameof(Contractor.Classification);
 
-            foreach(var entry in modelState) {
-                foreach(var error in entry.Value.Errors)
-                    messages.Add(error.ErrorMessage);
+            if (values.Contains(CONTRACTOR_ID))
+            {
+                model.ContractorId = Convert.ToInt32(values[CONTRACTOR_ID]);
             }
 
-            return string.Join(" ", messages);
+            if (values.Contains(TIN_NO))
+            {
+                model.TinNo = Convert.ToString(values[TIN_NO]);
+            }
+
+            if (values.Contains(CONTRACTOR_NAME))
+            {
+                model.ContractorName = Convert.ToString(values[CONTRACTOR_NAME]);
+            }
+
+            if (values.Contains(ADDRESS))
+            {
+                model.Address = Convert.ToString(values[ADDRESS]);
+            }
+
+            if (values.Contains(CONTACT_PERSON))
+            {
+                model.ContactPerson = Convert.ToString(values[CONTACT_PERSON]);
+            }
+
+            if (values.Contains(EMAIL))
+            {
+                model.Email = Convert.ToString(values[EMAIL]);
+            }
+
+            if (values.Contains(PHONE))
+            {
+                model.Phone = Convert.ToString(values[PHONE]);
+            }
+
+            if (values.Contains(TYPE))
+            {
+                model.Type = Convert.ToString(values[TYPE]);
+            }
+
+            if (values.Contains(CLASSIFICATION))
+            {
+                model.Classification = Convert.ToString(values[CLASSIFICATION]);
+            }
         }
+
+        
     }
 }
