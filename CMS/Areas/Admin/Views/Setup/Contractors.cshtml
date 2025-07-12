@@ -39,29 +39,64 @@
 		.Form(ff => ff.ColCount(1).LabelLocation(FormLabelLocation.Top)
 			.Items(it =>
 			{
+				//Todo: use client-side validation
 				it.AddGroup()
 					.ColCount(2)
 					.Items(itt =>
-				{
-					 
-					itt.AddSimpleFor(m => m.TinNo);
+					{
+						itt.AddSimpleFor(m => m.TinNo)
+							.ValidationRules(r => r
+								.AddRequired()
+							);
 
-					itt.AddSimpleFor(m => m.ContractorName);
 
-					itt.AddSimpleFor(m => m.ContactPerson);
+						itt.AddSimpleFor(m => m.ContractorName)
+							.ValidationRules(r => r
+								.AddRequired()
+							);
 
-					itt.AddSimpleFor(m => m.Email);
 
-					itt.AddSimpleFor(m => m.Phone);
+						itt.AddSimpleFor(m => m.ContactPerson)
+							.ValidationRules(r => r
+								.AddRequired()
+							);
 
-					itt.AddSimpleFor(m => m.Type);
 
-					itt.AddSimpleFor(m => m.Classification);
-				});
+						itt.AddSimpleFor(m => m.Email)
+							.ValidationRules(r =>
+							{
+								r.AddRequired();
+								r.AddEmail();
+							});
+
+
+						itt.AddSimpleFor(m => m.Phone)
+							.ValidationRules(r => r
+								.AddRequired()
+							);
+
+
+						itt.AddSimpleFor(m => m.Type)
+							.ValidationRules(r => r
+								.AddRequired()
+							);
+
+
+						itt.AddSimpleFor(m => m.Classification)
+							.ValidationRules(r => r
+								.AddRequired()
+							);
+					});
 
 				it.AddGroup()
 					.ColCount(2)
-					.Items(itt =>   itt.AddSimpleFor(m => m.Address).ColSpan(2) );
+					.Items(itt =>
+						itt.AddSimpleFor(m => m.Address)
+							.ColSpan(2)
+							.ValidationRules(r => r
+								.AddRequired()
+							)
+					);
 			}))
 		.AllowAdding(true)
 		.AllowUpdating(true)
